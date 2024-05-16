@@ -2,7 +2,7 @@ Create database wptProject;
 
 use wptProject;
 
-grant all privileges on wptproject.* to 'abhi'@'localhost';
+grant all privileges on wptproject.* to 'root'@'localhost';
 
 =============================================================================
 
@@ -17,8 +17,8 @@ CREATE TABLE CustomerDetails (
     Password VARCHAR(2000)
 );
 
--- Set the auto-increment starting value to 11
-ALTER TABLE CustomerDetails AUTO_INCREMENT = 110000;
+-- Set the auto-increment starting value to 110001
+ALTER TABLE CustomerDetails AUTO_INCREMENT = 110001;
 
 ==========================================================================
 
@@ -27,23 +27,23 @@ CREATE TABLE BranchDetails (
     address VARCHAR(1000)
 );
 
--- Set the auto-increment starting value to 13000
-ALTER TABLE BranchDetails AUTO_INCREMENT = 130000;
+-- Set the auto-increment starting value to 13001
+ALTER TABLE BranchDetails AUTO_INCREMENT = 130001;
 
 =============================================================================
 
 CREATE TABLE AccountDetails (
     account_no INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
-    branch_code INT UNIQUE,
+    branch_code INT,
     balance DECIMAL(15, 2),
     account_type VARCHAR(10),
-    CustomerID INT UNIQUE,
+    CustomerID INT,
     FOREIGN KEY (branch_code) REFERENCES BranchDetails(branch_code),
     FOREIGN KEY (CustomerID) REFERENCES CustomerDetails(CustomerID)
 );
 
--- Set the auto-increment starting value to 120000
-ALTER TABLE AccountDetails AUTO_INCREMENT = 120000;
+-- Set the auto-increment starting value to 120001
+ALTER TABLE AccountDetails AUTO_INCREMENT = 120001;
 
 =============================================================================
 
@@ -51,13 +51,13 @@ CREATE TABLE EmployeeDetails (
     empid INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
     emp_name VARCHAR(25),
     role VARCHAR(20),
-    branch_code INT UNIQUE,
+    branch_code INT,
     password VARCHAR(2000),
     FOREIGN KEY (branch_code) REFERENCES BranchDetails(branch_code)
 );
 
--- Set the auto-increment starting value to 140000
-ALTER TABLE EmployeeDetails AUTO_INCREMENT = 140000;
+-- Set the auto-increment starting value to 140001
+ALTER TABLE EmployeeDetails AUTO_INCREMENT = 140001;
 
 ==============================================================================
 
@@ -71,7 +71,7 @@ CREATE TABLE TransactionDetails (
     FOREIGN KEY (account_no) REFERENCES AccountDetails(account_no)
 );
 
-ALTER TABLE TransactionDetails AUTO_INCREMENT = 150000;
+ALTER TABLE TransactionDetails AUTO_INCREMENT = 150001;
 
 ===============================================================================
 
@@ -112,7 +112,7 @@ ALTER TABLE EmployeeDetails
     
     MODIFY COLUMN emp_name VARCHAR(25) NOT NULL,
     MODIFY COLUMN role VARCHAR(20) NOT NULL,
-    MODIFY COLUMN branch_code INT UNIQUE NOT NULL,
+    MODIFY COLUMN branch_code INT NOT NULL,
     MODIFY COLUMN password VARCHAR(2000) NOT NULL;
 
 ==============================================================================
@@ -121,7 +121,6 @@ insert into branchdetails (address) values('Mumbai');
 
 ==============================================================================
 
- insert into employeedetails (emp_name,role,branch_code,password) valu
-es('Abhi','admin',130000,'Cdac@123');
+ insert into employeedetails (emp_name,role,branch_code,password)values('Abhi','admin',130001,'Cdac@123');
 
 ==============================================================================

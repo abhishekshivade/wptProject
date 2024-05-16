@@ -1,9 +1,12 @@
+import bcrypt from "bcryptjs"
+const { hashSync } = bcrypt;
 import {
   ACC_DETAILS_TABLE,
   BRANCH_DETAILS_TABLE,
   CUST_DETAILS_TABLE,
 } from "../Utility/constants.js";
 import { dbConnection } from "../Utility/dbConnection.js";
+
 
 export const createAccount = (req, res) => {
   // console.log("creating Account")
@@ -19,9 +22,11 @@ export const createAccount = (req, res) => {
     accountType,
   } = req.body;
 
-  console.log(firstName," ",lastName," ",mobileNumber," ",emailId," ",address," ",aadhaarNumber," ",panNumber," ",password," ",accountType)
+//   console.log(firstName," ",lastName," ",mobileNumber," ",emailId," ",address," ",aadhaarNumber," ",panNumber," ",password," ",accountType)
 
-  const registerCustomerQuery = `insert into ${CUST_DETAILS_TABLE} (customerName,MobileNo,EmailID,Address,AadharNo,PanNo,Password) values ('${firstName}" "${lastName}','${mobileNumber}','${emailId}','${address}','${aadhaarNumber}','${panNumber}','${password}')`;
+  const encryptedPassword= hashSync(password,10);
+
+  const registerCustomerQuery = `insert into ${CUST_DETAILS_TABLE} (customerName,MobileNo,EmailID,Address,AadharNo,PanNo,Password) values ('${firstName} ${lastName}','${mobileNumber}','${emailId}','${address}','${aadhaarNumber}','${panNumber}','${encryptedPassword}')`;
 
   dbConnection.query(registerCustomerQuery, (error, result) => {
     if (error) {
@@ -57,7 +62,7 @@ export const createAccount = (req, res) => {
 
               dbConnection.query(createAccountQuery, (error, result) => {
                 if (error) {
-                //   console.log(error)
+                  console.log(error)
                   res
                     .status(500)
                     .send({
