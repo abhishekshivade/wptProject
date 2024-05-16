@@ -1,6 +1,6 @@
 export const PORT = 5000
 export const HOST="localhost"
-export const USER='root'
+export const USER='abhi'
 export const PASSWORD='cdac'
 export const DB_NAME='wptproject'
 export const ACC_DETAILS_TABLE='accountdetails'
