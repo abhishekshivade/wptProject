@@ -13,6 +13,8 @@ app.use('/admin',adminRouter)
 
 app.use('/',(req,res)=>{res.send('Welcome to RuPay Bank Server')})
 
+app.use('/',(req,res)=>{res.send('Welcome to RuPay Bank Server')})
+
 app.listen(PORT, () => {
     dbConnection.connect(error=>{
         if(error){
