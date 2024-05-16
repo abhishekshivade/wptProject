@@ -7,9 +7,9 @@ const app = express();
 
 app.use(express.json());
 
-// app.use('/',(req,res)=>{res.send('Welcome to RuPay Bank Server')})
-
 app.use('/customers',customerRouter)
+
+app.use('/',(req,res)=>{res.send('Welcome to RuPay Bank Server')})
 
 app.listen(PORT, () => {
     dbConnection.connect(error=>{
