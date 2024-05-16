@@ -116,3 +116,12 @@ ALTER TABLE EmployeeDetails
     MODIFY COLUMN password VARCHAR(2000) NOT NULL;
 
 ==============================================================================
+
+insert into branchdetails (address) values('Mumbai');
+
+==============================================================================
+
+ insert into employeedetails (emp_name,role,branch_code,password) valu
+es('Abhi','admin',130000,'Cdac@123');
+
+==============================================================================
