@@ -1,0 +1,118 @@
+Create database wptProject;
+
+use wptProject;
+
+grant all privileges on wptproject.* to 'abhi'@'localhost';
+
+=============================================================================
+
+CREATE TABLE CustomerDetails (
+    CustomerID INT PRIMARY KEY AUTO_INCREMENT,
+    CustomerName VARCHAR(25),
+    MobileNo VARCHAR(10) UNIQUE,
+    EmailID VARCHAR(25) UNIQUE,
+    Address VARCHAR(1000),
+    AadharNo VARCHAR(12) UNIQUE,
+    PanNo VARCHAR(10) UNIQUE,
+    Password VARCHAR(2000)
+);
+
+-- Set the auto-increment starting value to 11
+ALTER TABLE CustomerDetails AUTO_INCREMENT = 110000;
+
+==========================================================================
+
+CREATE TABLE BranchDetails (
+    branch_code INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    address VARCHAR(1000)
+);
+
+-- Set the auto-increment starting value to 13000
+ALTER TABLE BranchDetails AUTO_INCREMENT = 130000;
+
+=============================================================================
+
+CREATE TABLE AccountDetails (
+    account_no INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    branch_code INT UNIQUE,
+    balance DECIMAL(15, 2),
+    account_type VARCHAR(10),
+    CustomerID INT UNIQUE,
+    FOREIGN KEY (branch_code) REFERENCES BranchDetails(branch_code),
+    FOREIGN KEY (CustomerID) REFERENCES CustomerDetails(CustomerID)
+);
+
+-- Set the auto-increment starting value to 120000
+ALTER TABLE AccountDetails AUTO_INCREMENT = 120000;
+
+=============================================================================
+
+CREATE TABLE EmployeeDetails (
+    empid INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    emp_name VARCHAR(25),
+    role VARCHAR(20),
+    branch_code INT UNIQUE,
+    password VARCHAR(2000),
+    FOREIGN KEY (branch_code) REFERENCES BranchDetails(branch_code)
+);
+
+-- Set the auto-increment starting value to 140000
+ALTER TABLE EmployeeDetails AUTO_INCREMENT = 140000;
+
+==============================================================================
+
+CREATE TABLE TransactionDetails (
+    transaction_id INT PRIMARY KEY AUTO_INCREMENT,
+    account_no INT,
+    account_type VARCHAR(10),
+    amount DECIMAL(15, 2),
+    beneficiary VARCHAR(15),
+    type VARCHAR(6),
+    FOREIGN KEY (account_no) REFERENCES AccountDetails(account_no)
+);
+
+ALTER TABLE TransactionDetails AUTO_INCREMENT = 150000;
+
+===============================================================================
+
+ALTER TABLE TransactionDetails
+MODIFY COLUMN account_no INT NOT NULL,
+MODIFY COLUMN account_type VARCHAR(10) NOT NULL,
+MODIFY COLUMN amount DECIMAL(15, 2) NOT NULL,
+MODIFY COLUMN beneficiary VARCHAR(15) NOT NULL,
+MODIFY COLUMN type VARCHAR(6) NOT NULL;
+
+==============================================================================
+ 
+ALTER TABLE CustomerDetails 
+    MODIFY COLUMN CustomerName VARCHAR(25) NOT NULL,
+    MODIFY COLUMN MobileNo VARCHAR(10) NOT NULL,
+    MODIFY COLUMN EmailID VARCHAR(25) NOT NULL,
+    MODIFY COLUMN Address VARCHAR(1000) NOT NULL,
+    MODIFY COLUMN AadharNo VARCHAR(12) NOT NULL,
+    MODIFY COLUMN PanNo VARCHAR(10) NOT NULL,
+    MODIFY COLUMN Password VARCHAR(2000) NOT NULL;
+
+=============================================================================
+
+ALTER TABLE BranchDetails 
+    MODIFY COLUMN address VARCHAR(1000) NOT NULL;
+
+=============================================================================
+
+alter TABLE AccountDetails 
+    MODIFY COLUMN branch_code INT NOT NULL,
+    MODIFY COLUMN balance DECIMAL(15, 2) NOT NULL,
+    MODIFY COLUMN account_type VARCHAR(10) NOT NULL,
+    MODIFY COLUMN CustomerID INT NOT NULL;
+
+==============================================================================
+
+ALTER TABLE EmployeeDetails 
+    
+    MODIFY COLUMN emp_name VARCHAR(25) NOT NULL,
+    MODIFY COLUMN role VARCHAR(20) NOT NULL,
+    MODIFY COLUMN branch_code INT UNIQUE NOT NULL,
+    MODIFY COLUMN password VARCHAR(2000) NOT NULL;
+
+==============================================================================

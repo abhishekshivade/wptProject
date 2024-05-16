@@ -1,0 +1,10 @@
+export const PORT = 5000
+export const HOST="localhost"
+export const USER='root'
+export const PASSWORD='cdac'
+export const DB_NAME='wptproject'
+export const ACC_DETAILS_TABLE='accountdetails'
+export const BRANCH_DETAILS_TABLE='branchdetails'
+export const EMP_DETAILS_TABLE='employeedetails'
+export const TRAN_DETAILS_TABLE='employeedetails'
+export const CUST_DETAILS_TABLE='customerdetails'

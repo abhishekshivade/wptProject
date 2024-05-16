@@ -1,0 +1,21 @@
+{
+  "name": "bankserver",
+  "version": "1.0.0",
+  "description": "CDAC WPT Banking Website Mini Project Using React,MySql,Node.js, Express.js",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"nodemon index.js"
+  },
+  "keywords": [
+    "Bank",
+    "Finance"
+  ],
+  "author": "Abhishek Shivade, Siddhant Lahane, Saurabh Pande",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mysql": "^2.18.1"
+  }
+}
