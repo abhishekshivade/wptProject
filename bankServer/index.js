@@ -7,7 +7,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/',(req,res)=>{res.send('Welcome to RuPay Bank Server')})
+//app.use('/',(req,res)=>{res.send('Welcome to Bank Server')})
 
 app.use('/customers',customerRouter)
 
