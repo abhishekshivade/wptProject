@@ -2,12 +2,16 @@ import express from "express";
 import {PORT} from "./Utility/constants.js";
 import { dbConnection } from "./Utility/dbConnection.js";
 import { customerRouter } from "./Routes/customerRoutes.js";
+import { adminRouter } from "./Routes/adminRoutes.js";
 
 const app = express();
 
 app.use(express.json());
 
 app.use('/customers',customerRouter)
+app.use('/admin',adminRouter)
+
+app.use('/',(req,res)=>{res.send('Welcome to RuPay Bank Server')})
 
 app.use('/',(req,res)=>{res.send('Welcome to RuPay Bank Server')})
 
