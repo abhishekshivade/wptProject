@@ -33,7 +33,7 @@ export const createAdmin = (req, res) => {
             message: "Failed to register user, Something went wrong...!",
           });
         } else {
-          console.log(result);
+          // console.log(result);
           res.status(200).send({ message: "User Registered Successfully...!" });
         }
       });
