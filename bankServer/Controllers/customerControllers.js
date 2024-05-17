@@ -117,7 +117,7 @@ export const customerLogin = (req, res) => {
   });
 };
 
-export const getTrasactions = (req, res) => {
+export const getTransactions = (req, res) => {
   const { accountNumber } = req.body;
 
   const transactionQuery = `select * from ${TRAN_DETAILS_TABLE} where account_no=${accountNumber}`;
@@ -132,6 +132,47 @@ export const getTrasactions = (req, res) => {
       // console.log(result);
       if (result.length == 0) {
         res.status(200).send({ message: "No Transactions Found!" });
+      } else {
+        res.status(200).send(result);
+      }
+    }
+  });
+};
+
+export const getPersonalDetails = (req, res) => {
+  const { accountNumber } = req.body;
+  // const personalDetailsQuery = `select * from ${CUST_DETAILS_TABLE} where account_no=${accountNumber}`;
+  const personalDetailsQuery=`select * from customerdetails where customerId=(select customerId from accountdetails where account_no=${accountNumber})`;
+  dbConnection.query(personalDetailsQuery, (error, result) => {
+    if (error) {
+      // console.log(error);
+      res.status(500).send({
+        message: "Failed to fetch Personal Details",
+      });
+    } else {
+      // console.log(result);
+      if (result.length == 0) {
+        res.status(200).send({ message: "No Personal Details Found" });
+      } else {
+        res.status(200).send(result);
+      }
+    }
+  });
+};
+
+export const getAccountDetails = (req, res) => {
+  const { accountNumber } = req.body;
+  const accountDetailsQuery = `select * from ${ACC_DETAILS_TABLE} where account_no=${accountNumber}`;
+  dbConnection.query(accountDetailsQuery, (error, result) => {
+    if (error) {
+      // console.log(error);
+      res.status(500).send({
+        message: "Failed to fetch account details, Something went wrong",
+      });
+    } else {
+      // console.log(result);
+      if (result.length == 0) {
+        res.status(200).send({ message: "No account details Found!" });
       } else {
         res.status(200).send(result);
       }
