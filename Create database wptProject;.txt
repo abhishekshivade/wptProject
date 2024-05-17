@@ -66,7 +66,7 @@ CREATE TABLE TransactionDetails (
     account_no INT,
     account_type VARCHAR(10),
     amount DECIMAL(15, 2),
-    beneficiary VARCHAR(15),
+    beneficiary int,
     type VARCHAR(6),
     FOREIGN KEY (account_no) REFERENCES AccountDetails(account_no)
 );
