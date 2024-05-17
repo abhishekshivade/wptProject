@@ -1,3 +1,36 @@
+# Banking Website
+
+## To Run Server
+
+In wpt goto bankServer using
+
+### `cd bankServer`
+
+Run following command
+
+### `npm install`
+### `npm start`
+
+Server will run on port 5000
+
+open [http://localhost:5000] to call server
+
+### List of Routes used
+
+### `/` - base route
+
+### Customer Routes
+[/customers/createAccount] to create new Account
+[/customers/Login] to Login in account as customer by Customer ID and Password
+[/customers/getTransactions] to get Transaction Details by Account Number
+[/customers/getPersonalDetails] to get Customer Details by Account Number 
+[/customers/getAccountDetails] to get Account Details by Account Number
+
+### Admin Routes
+[/admin/addAdmin] to add new Admin/Employee 
+[/admin/login] to Login in account as Admin/Employee
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
