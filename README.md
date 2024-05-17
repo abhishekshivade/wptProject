@@ -20,15 +20,15 @@ open [http://localhost:5000] to call server
 ### `/` - base route
 
 ### Customer Routes
-[/customers/createAccount](/customers/createAccount) to create new Account
-[/customers/Login](/customers/Login) to Login in account as customer by Customer ID and Password
-[/customers/getTransactions](/customers/getTransactions) to get Transaction Details by Account Number
-[/customers/getPersonalDetails](/customers/getPersonalDetails) to get Customer Details by Account Number 
-[/customers/getAccountDetails](/customers/getAccountDetails) to get Account Details by Account Number
+[/customers/createAccount](/customers/createAccount) to create new Account\
+[/customers/Login](/customers/Login) to Login in account as customer by Customer ID and Password\
+[/customers/getTransactions](/customers/getTransactions) to get Transaction Details by Account Number\
+[/customers/getPersonalDetails](/customers/getPersonalDetails) to get Customer Details by Account Number\ 
+[/customers/getAccountDetails](/customers/getAccountDetails) to get Account Details by Account Number\
 
 ### Admin Routes
-[/admin/addAdmin](/admin/addAdmin) to add new Admin/Employee 
-[/admin/login](/admin/login) to Login in account as Admin/Employee
+[/admin/addAdmin](/admin/addAdmin) to add new Admin/Employee\ 
+[/admin/login](/admin/login) to Login in account as Admin/Employee\
 
 
 # Getting Started with Create React App
