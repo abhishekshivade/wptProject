@@ -1,5 +1,5 @@
 import bcrypt from "bcryptjs"
-const { hashSync } = bcrypt;
+const { hashSync, compareSync } = bcrypt;
 import {
   ACC_DETAILS_TABLE,
   BRANCH_DETAILS_TABLE,
@@ -99,7 +99,7 @@ export const customerLogin = (req, res) => {
               res.status(400).send({ message: "Invalid CustomerID" });
           }
           else {
-              if (Password == result[0].Password) {
+              if (compareSync(Password,result[0].Password)) {
                   res.status(200).send({ message: "Login successful" });
               }
               else {
