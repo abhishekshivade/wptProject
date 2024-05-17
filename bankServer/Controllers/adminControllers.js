@@ -11,8 +11,6 @@ export const createAdmin = (req, res) => {
 
   const { firstName, lastName, branchName, role, password } = req.body;
 
-  // console.log(firstName, " ", lastName, " ", role, " ", password);
-
   const encryptedPassword = hashSync(password, 10);
 
   const branchCodeQry = `select branch_code from ${BRANCH_DETAILS_TABLE} where address='${branchName}'`;
@@ -33,7 +31,7 @@ export const createAdmin = (req, res) => {
             message: "Failed to register user, Something went wrong...!",
           });
         } else {
-          console.log(result);
+          // console.log(result);
           res.status(200).send({ message: "User Registered Successfully...!" });
         }
       });
@@ -53,7 +51,6 @@ export const fetchEmpDetails = (req, res) => {
 };
 
 export const adminLogin = (req, res) => {
-   // console.log("calling");
   const { employeeId, password } = req.body;
   const qry = `select * from ${EMP_DETAILS_TABLE} where empid=${employeeId}`;
   dbConnection.query(qry, (error, result) => {

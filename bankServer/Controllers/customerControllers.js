@@ -23,8 +23,6 @@ export const createAccount = (req, res) => {
     accountType,
   } = req.body;
 
-  //   console.log(firstName," ",lastName," ",mobileNumber," ",emailId," ",address," ",aadhaarNumber," ",panNumber," ",password," ",accountType)
-
   const encryptedPassword = hashSync(password, 10);
 
   const registerCustomerQuery = `insert into ${CUST_DETAILS_TABLE} (customerName,MobileNo,EmailID,Address,AadharNo,PanNo,Password) values ('${firstName} ${lastName}','${mobileNumber}','${emailId}','${address}','${aadhaarNumber}','${panNumber}','${encryptedPassword}')`;
@@ -36,10 +34,6 @@ export const createAccount = (req, res) => {
         .status(500)
         .send({ message: "Failed to register user, Something went wrong...!" });
     } else {
-      // console.log(result)
-      //         res.status(200).send({message:"User Registered Successfully...!"})
-      //     }
-      // })
 
       const customerIdQry = `select CustomerID from ${CUST_DETAILS_TABLE} where PanNo='${panNumber}'`;
 
@@ -87,7 +81,6 @@ export const createAccount = (req, res) => {
 
 export const customerLogin = (req, res) => {
   const { CustomerID, Password } = req.body;
-  // console.log(Password);
 
   const qry = `select * from ${CUST_DETAILS_TABLE} where CustomerID=${CustomerID}`;
   dbConnection.query(qry, (error, result) => {
@@ -140,9 +133,7 @@ export const getTransactions = (req, res) => {
 };
 
 export const getPersonalDetails = (req, res) => {
-  const { accountNumber } = req.body;
-  // const personalDetailsQuery = `select * from ${CUST_DETAILS_TABLE} where account_no=${accountNumber}`;
-  const personalDetailsQuery=`select * from customerdetails where customerId=(select customerId from accountdetails where account_no=${accountNumber})`;
+  const { accountNumber } = req.body;  const personalDetailsQuery=`select * from customerdetails where customerId=(select customerId from accountdetails where account_no=${accountNumber})`;
   dbConnection.query(personalDetailsQuery, (error, result) => {
     if (error) {
       // console.log(error);

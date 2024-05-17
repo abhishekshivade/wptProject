@@ -13,18 +13,16 @@ app.use('/admin',adminRouter)
 
 app.use('/',(req,res)=>{res.send('Welcome to RuPay Bank Server')})
 
-app.use('/',(req,res)=>{res.send('Welcome to RuPay Bank Server')})
-
 app.listen(PORT, () => {
     dbConnection.connect(error=>{
         if(error){
             console.log("Error while connecting Db");
-            console.log(error)
+            // console.log(error)
         }else{
             console.log("Db connected Successfully...!")
         }
     })
   console.log(`\nServer is listening on port ${PORT}\n`);
-  console.log(`Local            : http://localhost:${PORT}`);
-  console.log(`On Your Network  : http://192.168.0.107:${PORT}`)
+  console.log(`Local            : http://localhost:${PORT}\n`);
+  console.log(`On Your Network  : http://192.168.0.107:${PORT}\n`)
 });
