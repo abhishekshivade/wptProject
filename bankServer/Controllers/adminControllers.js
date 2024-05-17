@@ -1,10 +1,11 @@
 import bcrypt from "bcryptjs";
-const { hashSync } = bcrypt;
+const { hashSync,compareSync } = bcrypt;
 import {
   BRANCH_DETAILS_TABLE,
   EMP_DETAILS_TABLE,
 } from "../Utility/constants.js";
 import { dbConnection } from "../Utility/dbConnection.js";
+import jwt from "jsonwebtoken"
 
 export const createAdmin = (req, res) => {
 
@@ -40,10 +41,6 @@ export const createAdmin = (req, res) => {
   });
 };
 
-// import { compareSync } from "bcrypt";
-// import { EMP_DETAILS_TABLE } from "../Utility/constants.js";
-// import { dbConnection } from "../Utility/dbConnection.js";
-
 export const fetchEmpDetails = (req, res) => {
   const qry = `select * from ${EMP_DETAILS_TABLE}`;
   dbConnection.query(qry, (error, results) => {
@@ -57,25 +54,27 @@ export const fetchEmpDetails = (req, res) => {
 
 export const adminLogin = (req, res) => {
    // console.log("calling");
-  const { username, password } = req.body;
-  const qry = `select * from ${EMP_DETAILS_TABLE} where emp_name='${username}'`;
+  const { employeeId, password } = req.body;
+  const qry = `select * from ${EMP_DETAILS_TABLE} where empid=${employeeId}`;
   dbConnection.query(qry, (error, result) => {
     if (error) {
        // console.log(error);
       res.status(500).send({ message: "Something went wrong....!" });
     } else {
       if (result.length == 0) {
-        res.status(400).send({ message: "Invalid username" });
+        res.status(400).send({ message: "Invalid Employee ID" });
       } else {
        // console.log(result);
-        // const encryptedPassword = result[0].password;
-        //if(compareSync(password,encryptedPassword)){
-        if (password == result[0].password) {
-          res.status(200).send({ message: "Login successful" });
+        const encryptedPassword = result[0].password;
+        if(compareSync(password,encryptedPassword)){
+
+          const token=jwt.sign({employeeId:result[0].employeeId},"RuPayBank")
+
+          res.status(200).send({ message: "Login successful",token:token });
         } else {
           res
             .status(400)
-            .send({ message: "Invalid password for the mentioned username" });
+            .send({ message: "Invalid password for the mentioned Employee ID" });
         }
       }
     }
