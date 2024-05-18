@@ -1,11 +1,14 @@
 // import logo from './logo.svg';
 import './App.css';
+import Registration from './components/Registration';
+import RegistrationNext from './components/RegistrationNext';
 
 function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+   <div className='w-full h-screen bg'>
+    <Registration/>
+    <RegistrationNext/>
+   </div>
   );
 }
 
