@@ -1,14 +1,28 @@
 // import logo from './logo.svg';
 import './App.css';
-import Registration from './components/Registration';
-import RegistrationNext from './components/RegistrationNext';
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Navbar from './components/Navbar';
+import Home from './components/Home'
+import About from './components/About'
+import Contact from './components/Contact'
+import Footer from './components/Footer';
+import Login from './components/Login';
+import SignUp from './components/SignUp';
+// import Login from './components/Login';
 
 function App() {
   return (
-   <div className='w-full h-screen bg'>
-    <Registration/>
-    <RegistrationNext/>
-   </div>
+    <BrowserRouter>
+    <Navbar/>
+    <Routes>
+      <Route path='/' element={<Home/>}/>
+      <Route path='/contactUs' element={<Contact/>}/>
+      <Route path='/aboutUs' element={<About/>}/>
+      <Route path='/logIn' element={<Login/>}/>
+      <Route path='/signUp' element={<SignUp/>}/>
+    </Routes>
+    <Footer/>
+    </BrowserRouter>
   );
 }
 

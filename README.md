@@ -13,7 +13,7 @@ Run following command
 
 Server will run on port 5000
 
-open [http://localhost:5000] to call server
+open [http://localhost:5000](http://localhost:5000) to call server
 
 ### List of Routes used
 
