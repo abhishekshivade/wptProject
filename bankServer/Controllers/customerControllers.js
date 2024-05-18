@@ -113,7 +113,7 @@ export const customerLogin = (req, res) => {
 export const getTransactions = (req, res) => {
   const { accountNumber } = req.body;
 
-  const transactionQuery = `select * from ${TRAN_DETAILS_TABLE} where account_no=${accountNumber}`;
+  const transactionQuery = `select * from ${TRAN_DETAILS_TABLE} where account_no=${accountNumber} or beneficiary=${accountNumber}`;
 
   dbConnection.query(transactionQuery, (error, result) => {
     if (error) {

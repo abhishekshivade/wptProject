@@ -65,7 +65,7 @@ CREATE TABLE TransactionDetails (
     amount DECIMAL(15, 2),
     beneficiary INT,
     type VARCHAR(6),
-    FOREIGN KEY (account_no) REFERENCES AccountDetails(account_no)
+    FOREIGN KEY (account_no) REFERENCES AccountDetails(account_no),
     FOREIGN KEY (beneficiary) REFERENCES AccountDetails(account_no)
 );
 
@@ -116,3 +116,6 @@ insert into branchdetails (address) values('Mumbai');
 insert into employeedetails (emp_name,role,branch_code,password) values('Abhi','admin',130000,'Cdac@123');
 
 insert into CustomerDetails (CustomerName, MobileNo, EmailID, Address, AadharNo, PanNo, Password) values('Saurabh Pande','9561908640', 'saurabhpande062@gmail.com', 'Mumbai', '111100005555', 'ABCDE1111x', 'SaurabhP@07');
+
+
+select * from customerdetails where customerId=(select customerId from accountdetails where account_no=120004)
