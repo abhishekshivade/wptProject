@@ -3,9 +3,10 @@ import {PORT} from "./Utility/constants.js";
 import { dbConnection } from "./Utility/dbConnection.js";
 import { customerRouter } from "./Routes/customerRoutes.js";
 import { adminRouter } from "./Routes/adminRoutes.js";
+import cors from 'cors'
 
 const app = express();
-
+app.use(cors())
 app.use(express.json());
 
 app.use('/customers',customerRouter)
