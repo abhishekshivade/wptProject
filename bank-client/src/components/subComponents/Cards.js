@@ -24,9 +24,9 @@ const Cards = () => {
         },
       ];
   return (
-    <div class="flex justify-around">
+    <div className="flex justify-around">
         {items.map((item,i)=>(
-            <div class="w-72 h-72 bg-cover bg-center" style={{ backgroundImage: `url(${item.bgImg})` }}>
+            <div key={i} className="w-72 h-72 bg-cover bg-center" style={{ backgroundImage: `url(${item.bgImg})` }}>
                 <p>{item.description}</p>
             </div>
         ))}

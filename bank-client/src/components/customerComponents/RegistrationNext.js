@@ -1,14 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
+import { useNavigate } from "react-router-dom";
+import { CUSTOMER_DASHBOARD } from "../../constants/AppRoutes";
+import { registerCustomer } from "../../services/customerServices";
 
 export default function RegistrationNext() {
-  const [accountType, setAccountType] = React.useState("");
+  const [userData, setUserData] = useState({
+    aadhaarNumber: "",
+    panNumber: "",
+    password: "",
+    accountType: "",
+  });
 
-  const handleChange = (event) => {
-    setAccountType(event.target.value);
+  const [confirmPasword, setConfirmPassword] = useState("");
+
+  const [error, setError] = useState({
+    aadhaarNumberErr: "",
+    panNumberErr: "",
+    passwordErr: "",
+    accountTypeErr: "",
+  });
+
+  const navigate = useNavigate();
+
+  const handleConfirmPassword = (e) => {
+    e.preventDefault();
+
+    const confirmPaswordError = userData.password === confirmPasword;
+
+    if (confirmPaswordError) {
+      setError({ ...error, confirmPaswordError: null });
+    } else {
+      setError({ ...error, confirmPaswordError: "Password do not match" });
+      return;
+    }
+  };
+
+  const handleChange = (e) =>
+    setUserData({ ...userData, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await registerCustomer(userData);
+      // console.log(response)
+
+      if (response.status === 200) {
+        navigate(CUSTOMER_DASHBOARD);
+      }
+    } catch (error) {
+      setError("Please enter correct data");
+    }
   };
 
   return (
@@ -17,12 +62,16 @@ export default function RegistrationNext() {
         <div className="w-full text-center my-3">
           <h2 className="text-2x1 text-black font-medium">Register</h2>
         </div>
-        <form className="my-2">
+        <form className="my-2" onSubmit={handleSubmit}>
           <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
             <input
               type="number"
               className="w-11/12 bg-transparent outline-none placeholder-black"
               placeholder="Enter your Aadhaar Number"
+              value={userData.aadhaarNumber}
+              onChange={handleChange}
+              name="aadhaarNumber"
+              required
             />
             <div className="w-2/12 flex items-center justify-center">
               <i className="fa-solid fa-id-card text-x1"></i>
@@ -33,6 +82,10 @@ export default function RegistrationNext() {
               type="text"
               className="w-11/12 bg-transparent outline-none placeholder-black"
               placeholder="Enter your PAN Number"
+              value={userData.panNumber}
+              name="panNumber"
+              onChange={handleChange}
+              required
             />
             <div className="w-2/12 flex items-center justify-center">
               <i className="fa-solid fa-address-card text-x1"></i>
@@ -43,6 +96,10 @@ export default function RegistrationNext() {
               type="password"
               className="w-11/12 bg-transparent outline-none placeholder-black"
               placeholder="Enter your Strong Password"
+              value={userData.password}
+              name="password"
+              onChange={handleChange}
+              required
             />
             <div className="w-2/12 flex items-center justify-center">
               <i className="fa-solid fa-lock text-x1"></i>
@@ -52,7 +109,12 @@ export default function RegistrationNext() {
             <input
               type="password"
               className="w-11/12 bg-transparent outline-none placeholder-black"
-              placeholder="Enter your Confirm Password"
+              placeholder="Re-Enter your Password"
+              name="confirmPassword"
+              value={confirmPasword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              onBlur={handleConfirmPassword}
+              required
             />
             <div className="w-2/12 flex items-center justify-center">
               <i className="fa-solid fa-lock text-x1"></i>
@@ -66,9 +128,11 @@ export default function RegistrationNext() {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={accountType}
+                value={userData.accountType}
+                name="accountType"
                 label="Account Type"
                 onChange={handleChange}
+                required
               >
                 <MenuItem value="Savings">Savings</MenuItem>
                 <MenuItem value="Current">Current</MenuItem>
@@ -77,6 +141,7 @@ export default function RegistrationNext() {
               </Select>
             </FormControl>
           </div>
+          {error.accountTypeErr && <p style={{ color: "red" }}>{error.accountTypeErr}</p>}
           <div className="mx-5 my-7 py-2">
             <button className="bg-black w-full h-[35px] rounded-sm text-white">
               Submit
