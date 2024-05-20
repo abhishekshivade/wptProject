@@ -20,6 +20,7 @@ function App() {
   return (
     <BrowserRouter>
     <Navbar/>
+    
     <Routes>
       <Route path={BASE_ROUTE} element={<Home/>}/>
       <Route path={CONTACT_ROUTE} element={<Contact/>}/>

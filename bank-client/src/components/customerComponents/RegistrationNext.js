@@ -57,8 +57,8 @@ export default function RegistrationNext() {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center">
-      <div className="w-80 glass">
+    <div className="w-full min-h-screen flex items-center justify-center bg-gray-100">
+      <div className="w-full max-w-md bg-white shadow-md rounded-lg p-6 md:p-8 glass">
         <div className="w-full text-center my-3">
           <h2 className="text-black font-bold text-2xl md:text-3xl mt-3">Register</h2>
         </div>
@@ -66,7 +66,7 @@ export default function RegistrationNext() {
           <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
             <input
               type="number"
-              className="w-11/12 bg-transparent outline-none placeholder-black"
+              className="w-10/12 bg-transparent outline-none placeholder-black"
               placeholder="Enter your Aadhaar Number"
               value={userData.aadhaarNumber}
               onChange={handleChange}
@@ -74,13 +74,13 @@ export default function RegistrationNext() {
               required
             />
             <div className="w-2/12 flex items-center justify-center">
-              <i className="fa-solid fa-id-card text-x1"></i>
+              <i className="fa-solid fa-id-card text-xl"></i>
             </div>
           </div>
-          <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
+          <div className="flex items-center border-b-black border-b-2 mx-1 md:mx-5 my-4 py-1">
             <input
               type="text"
-              className="w-11/12 bg-transparent outline-none placeholder-black"
+              className="w-10/12 bg-transparent outline-none placeholder-black"
               placeholder="Enter your PAN Number"
               value={userData.panNumber}
               name="panNumber"
@@ -88,24 +88,24 @@ export default function RegistrationNext() {
               required
             />
             <div className="w-2/12 flex items-center justify-center">
-              <i className="fa-solid fa-address-card text-x1"></i>
+              <i className="fa-solid fa-address-card text-xl"></i>
             </div>
           </div>
-          <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
+          <div className="flex items-center border-b-black border-b-2 mx-1 md:mx-5 my-4 py-1">
             <input
-              type="password"
-              className="w-11/12 bg-transparent outline-none placeholder-black"
+              type={showPassword ? "text" : "password"}
+              className="w-10/12 bg-transparent outline-none placeholder-black"
               placeholder="Enter your Strong Password"
               value={userData.password}
               name="password"
               onChange={handleChange}
               required
             />
-            <div className="w-2/12 flex items-center justify-center">
-              <i className="fa-solid fa-lock text-x1"></i>
+            <div className="w-2/12 flex items-center justify-center cursor-pointer" onClick={togglePasswordVisibility}>
+              <i className={`fa-solid ${showPassword ? "fa-eye-slash" : "fa-eye"} text-xl`}></i>
             </div>
           </div>
-          <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
+          <div className="flex items-center border-b-black border-b-2 mx-1 md:mx-5 my-4 py-1">
             <input
               type="password"
               className="w-11/12 bg-transparent outline-none placeholder-black"
@@ -116,15 +116,13 @@ export default function RegistrationNext() {
               onBlur={handleConfirmPassword}
               required
             />
-            <div className="w-2/12 flex items-center justify-center">
-              <i className="fa-solid fa-lock text-x1"></i>
+            <div className="w-2/12 flex items-center justify-center cursor-pointer" onClick={toggleConfirmPasswordVisibility}>
+              <i className={`fa-solid ${showConfirmPassword ? "fa-eye-slash" : "fa-eye"} text-xl`}></i>
             </div>
           </div>
-          <div className="flex flex-col border-b-black border-b-2 mx-5 my-7 py-1">
+          <div className="flex flex-col border-b-black border-b-2 mx-1 md:mx-5 my-4 py-1">
             <FormControl fullWidth>
-              <InputLabel id="demo-simple-select-label">
-                Account Type
-              </InputLabel>
+              <InputLabel id="account-type-label">Account Type</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
@@ -152,3 +150,4 @@ export default function RegistrationNext() {
     </div>
   );
 }
+
