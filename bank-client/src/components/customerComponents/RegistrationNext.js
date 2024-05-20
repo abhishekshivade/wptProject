@@ -60,7 +60,7 @@ export default function RegistrationNext() {
     <div className="w-full h-screen flex items-center justify-center">
       <div className="w-80 glass">
         <div className="w-full text-center my-3">
-          <h2 className="text-2x1 text-black font-medium">Register</h2>
+          <h2 className="text-black font-bold text-2xl md:text-3xl mt-3">Register</h2>
         </div>
         <form className="my-2" onSubmit={handleSubmit}>
           <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
@@ -143,7 +143,7 @@ export default function RegistrationNext() {
           </div>
           {error.accountTypeErr && <p style={{ color: "red" }}>{error.accountTypeErr}</p>}
           <div className="mx-5 my-7 py-2">
-            <button className="bg-black w-full h-[35px] rounded-sm text-white">
+            <button className="bg-black w-20 h-[35px] text-white rounded-full mb-3 hover:bg-white hover:text-black hover:border hover:border-black">
               Submit
             </button>
           </div>

@@ -30,7 +30,7 @@ function App() {
 
       <Route path={CUSTOMER_LOGIN_ROUTE} element={<CustomerLogin/>}/>
       {/* <Route path={CUSTOMER_SIGNUP_ROUTE1} element={<CustomerRegistration/>}/> */}
-      <Route path={CUSTOMER_SIGNUP_ROUTE2} element={<CutsomerRegistrationNext/>}/>
+      {/* <Route path={CUSTOMER_SIGNUP_ROUTE2} element={<CutsomerRegistrationNext/>}/> */}
       <Route path={CUSTOMER_SIGNUP_ROUTE1} element={<SignUp/>}/>
       <Route path={CUSTOMER_DASHBOARD} element={<CustomerDashboard/>}/>
     </Routes>
