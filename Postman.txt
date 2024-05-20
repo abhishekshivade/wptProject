@@ -1,0 +1,83 @@
+==================================================================
+
+http://localhost:5000/customers/createAccount
+
+JSON Body
+{
+    "firstName":"Abhi",
+    "lastName":"Shivade",
+    "mobileNumber":"9876543211",
+    "emailId":"def@gmail.com",
+    "address":"Mumbai",
+    "aadhaarNumber":"999988886666",
+    "panNumber":"ABCDE2345F",
+    "password":"Cdac@123",
+    "accountType":"Saving"
+}
+
+=====================================================================
+
+http://localhost:5000/admin/addAdmin
+
+JSON Body
+{
+    "firstName":"Abhi",
+    "lastName":"Shivade",
+    "branchName":"Mumbai",
+    "role":"admin",
+    "password":"Cdac@123"
+}
+
+======================================================================
+
+http://localhost:5000/customers/login
+
+JSON Body
+{
+    "CustomerID":"110007",
+    "Password":"Cdac@123"
+}
+
+========================================================================
+
+http://localhost:5000/admin/login
+
+JSON Body
+{
+    "employeeId":"140001",
+    "password":"Cdac@123"
+}
+
+========================================================================
+
+http://localhost:5000/customers/getTransactions
+
+set Header as "Auth":token
+
+JSON Body
+{
+    "accountNumber":"120004"
+}
+========================================================================
+
+http://localhost:5000/customers/getAccountDetails
+
+set Header as "Auth":token
+
+JSON Body
+{
+    "accountNumber":"120004"
+}
+
+=========================================================================
+
+http://localhost:5000/customers/getPersonalDetails
+
+set Header as "Auth":token
+
+JSON Body
+{
+    "accountNumber":"120004"
+}
+
+=========================================================================
