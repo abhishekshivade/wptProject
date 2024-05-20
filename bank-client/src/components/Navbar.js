@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Logo from "../assets/RuPay.png";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Authentication from "./subComponents/Authentication";
-import { ABOUT_ROUTE, ADMIN_LOGIN_ROUTE, ADMIN_SIGNUP_ROUTE, BASE_ROUTE, CONTACT_ROUTE, CUSTOMER_LOGIN_ROUTE, CUSTOMER_SIGNUP_ROUTE1 } from "../constants/AppRoutes";
+import { ABOUT_ROUTE, ADMIN_LOGIN_ROUTE, ADMIN_SIGNUP_ROUTE, BASE_ROUTE, CONTACT_ROUTE, CUSTOMER_LOGIN_ROUTE, CUSTOMER_SIGNUP_ROUTE } from "../constants/AppRoutes";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
@@ -21,14 +21,14 @@ const Navbar = () => {
           navigate(`${CUSTOMER_LOGIN_ROUTE}`);
         }
         if (location.pathname === `${ADMIN_SIGNUP_ROUTE}`) {
-          navigate(`${CUSTOMER_SIGNUP_ROUTE1}`);
+          navigate(`${CUSTOMER_SIGNUP_ROUTE}`);
         }
         break;
       case "Employee":
         if (location.pathname === `${CUSTOMER_LOGIN_ROUTE}`) {
           navigate(`${ADMIN_LOGIN_ROUTE}`);
         }
-        if (location.pathname === `${CUSTOMER_SIGNUP_ROUTE1}`) {
+        if (location.pathname === `${CUSTOMER_SIGNUP_ROUTE}`) {
           navigate(`${ADMIN_SIGNUP_ROUTE}`);
         }
         break;

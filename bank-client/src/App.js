@@ -1,4 +1,3 @@
-// import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Navbar from './components/Navbar';
@@ -9,10 +8,8 @@ import Footer from './components/Footer';
 import AdminLogin from './components/adminComponents/AdminLogin';
 import AdminRegistration from "./components/adminComponents/AdminRegistration"
 import CustomerLogin from './components/customerComponents/CustomerLogin';
-import CustomerRegistration from "./components/customerComponents/Registration"
-import CutsomerRegistrationNext from "./components/customerComponents/RegistrationNext"
-import { ABOUT_ROUTE, ADMIN_DASHBOARD, ADMIN_LOGIN_ROUTE, ADMIN_SIGNUP_ROUTE, BASE_ROUTE, CONTACT_ROUTE, CUSTOMER_DASHBOARD, CUSTOMER_LOGIN_ROUTE, CUSTOMER_SIGNUP_ROUTE1, CUSTOMER_SIGNUP_ROUTE2 } from './constants/AppRoutes';
-import SignUp from './components/SignUp';
+import CustomerRegistration from './components/customerComponents/CustomerRegistration';
+import { ABOUT_ROUTE, ADMIN_DASHBOARD, ADMIN_LOGIN_ROUTE, ADMIN_SIGNUP_ROUTE, BASE_ROUTE, CONTACT_ROUTE, CUSTOMER_DASHBOARD, CUSTOMER_LOGIN_ROUTE, CUSTOMER_SIGNUP_ROUTE } from './constants/AppRoutes';
 import CustomerDashboard from './components/customerComponents/CustomerDashboard';
 import AdminDashboard from './components/adminComponents/AdminDashboard';
 
@@ -30,9 +27,7 @@ function App() {
       <Route path={ADMIN_DASHBOARD} element={<AdminDashboard/>}/>
 
       <Route path={CUSTOMER_LOGIN_ROUTE} element={<CustomerLogin/>}/>
-      {/* <Route path={CUSTOMER_SIGNUP_ROUTE1} element={<CustomerRegistration/>}/> */}
-      {/* <Route path={CUSTOMER_SIGNUP_ROUTE2} element={<CutsomerRegistrationNext/>}/> */}
-      <Route path={CUSTOMER_SIGNUP_ROUTE1} element={<SignUp/>}/>
+      <Route path={CUSTOMER_SIGNUP_ROUTE} element={<CustomerRegistration/>}/>
       <Route path={CUSTOMER_DASHBOARD} element={<CustomerDashboard/>}/>
     </Routes>
     <Footer/>
