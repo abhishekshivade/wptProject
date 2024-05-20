@@ -8,8 +8,8 @@ import { faUser, faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-i
 
 const CustomerLogin = () => {
   const [loginCredentials, setLoginCredentials] = useState({
-    customerId: "",
-    password: "",
+    CustomerID: "",
+    Password: "",
   });
   const [error, setError] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -56,8 +56,8 @@ const CustomerLogin = () => {
           <div className="relative flex border-b-black border-b-2 mx-5 my-7 py-1">
             <input
               type="text"
-              name="customerId"
-              value={loginCredentials.customerId}
+              name="CustomerID"
+              value={loginCredentials.CustomerID}
               onChange={handleChange}
               required
               className="w-full bg-transparent outline-none placeholder-black pl-8"
@@ -70,8 +70,8 @@ const CustomerLogin = () => {
           <div className="relative flex border-b-black border-b-2 mx-5 my-7 py-1">
             <input
               type={passwordVisible ? "text" : "password"}
-              name="password"
-              value={loginCredentials.password}
+              name="Password"
+              value={loginCredentials.Password}
               onChange={handleChange}
               required
               className="w-full bg-transparent outline-none placeholder-black pl-8"
