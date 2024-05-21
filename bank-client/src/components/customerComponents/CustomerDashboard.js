@@ -1,6 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState} from "react";
+import {TransactionTable} from './TransactionTable'
+import { getCustomerId } from "../../services/authServices";
+import { getPersonalDetails } from "../../services/customerServices";
 
 const CustomerDashboard = () =>{
+  const [personalDetails,setPersonalDetails]=useState()
+  const [accouuntDetails,setAccountDetails]=useState()
+  const [transactionDetails,setTransactionDetails]=useState()
+
+  const customerId=getCustomerId()
+
+  const getPrDetails=async()=>{
+    
+    setPersonalDetails(await getPersonalDetails(customerId))
+    console.log(personalDetails)
+  }
+  
+  useEffect(()=>{
+    getPrDetails()
+  },[])
+
   return (
     <div className="w-screen text-center">
       <h1 className="text-2xl font-bold mt-5">Customer Dashboard</h1>
@@ -52,6 +71,7 @@ const CustomerDashboard = () =>{
       <div className="h-36 mt-10">
         <h1 className="text-xl font-semibold">Transaction Details</h1>
         {/* Add transaction details content here */}
+        <TransactionTable/>
       </div>
     </div>
   );

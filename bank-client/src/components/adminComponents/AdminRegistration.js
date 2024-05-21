@@ -24,54 +24,38 @@ export default function AdminRegistration() {
     confirmPasswordErr: "",
   });
 
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
   const navigate = useNavigate();
   const validate = validateUser();
 
   const handleChange = (e) => {
     setAdminData({ ...adminData, [e.target.name]: e.target.value });
   };
+
   const handleFirstNameBlur = (e) => {
     e.preventDefault();
-
     const firstNameErr = validate.validateName(adminData.firstName);
-
-    setError({
-      ...error,
-      firstNameErr,
-    });
+    setError({ ...error, firstNameErr });
   };
 
   const handleLastNameBlur = (e) => {
     e.preventDefault();
-
     const lastNameErr = validate.validateName(adminData.lastName);
-
-    setError({
-      ...error,
-      lastNameErr,
-    });
+    setError({ ...error, lastNameErr });
   };
 
   const handleBranchBlur = (e) => {
     e.preventDefault();
-
     const branchNameErr = validate.validateBranch(adminData.branchName);
-
-    setError({
-      ...error,
-      branchNameErr,
-    });
+    setError({ ...error, branchNameErr });
   };
 
   const handlePasswordBlur = (e) => {
     e.preventDefault();
-
     const passwordError = validate.validatePassword(adminData.password);
-
-    setError({
-      ...error,
-      passwordError,
-    });
+    setError({ ...error, passwordError });
   };
 
   const handleConfirmPassword = (e) => {
@@ -85,7 +69,6 @@ export default function AdminRegistration() {
     event.preventDefault();
     try {
       const response = await registerAdmin(adminData);
-
       if (response.status === 200) {
         navigate(ADMIN_LOGIN_ROUTE);
       }
@@ -94,13 +77,19 @@ export default function AdminRegistration() {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
   return (
     <div className="flex items-center justify-center min-h-screen p-4 bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-6 bg-white shadow-lg rounded-lg">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-black md:text-3xl">
-            Register
-          </h2>
+          <h2 className="text-2xl font-bold text-black md:text-3xl">Register</h2>
         </div>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
@@ -139,19 +128,6 @@ export default function AdminRegistration() {
               {error.lastNameErr ? error.lastNameErr : <br />}
             </p>
           </div>
-          {/* <div className="flex items-center border-b-2 border-black">
-            <input
-              type="text"
-              className="flex-grow bg-transparent outline-none placeholder-black"
-              placeholder="Enter Branch Name"
-              onChange={handleChange}
-              name="branchName"
-              value={adminData.branchName}
-              required
-            />
-            <i className="fa-solid fa-mobile text-xl"></i>
-          </div> */}
-
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Branch</InputLabel>
             <Select
@@ -166,20 +142,6 @@ export default function AdminRegistration() {
               <MenuItem value="MUMBAI">MUMBAI</MenuItem>
             </Select>
           </FormControl>
-
-          {/* <div className="flex items-center border-b-2 border-black">
-            <input
-              type="text"
-              className="flex-grow bg-transparent outline-none placeholder-black"
-              placeholder="Enter your Role"
-              onChange={handleChange}
-              name="role"
-              value={adminData.role}
-              required
-            />
-            <i className="fa-solid fa-envelope text-xl"></i>
-          </div> */}
-
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Role</InputLabel>
             <Select
@@ -197,7 +159,7 @@ export default function AdminRegistration() {
           <div>
             <div className="flex items-center border-b-2 border-black">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 className="flex-grow bg-transparent outline-none placeholder-black"
                 placeholder="Enter password"
                 onChange={handleChange}
@@ -206,7 +168,12 @@ export default function AdminRegistration() {
                 onBlur={handlePasswordBlur}
                 required
               />
-              <i className="fa-solid fa-lock text-xl"></i>
+              <i
+                className={`fa-solid text-xl cursor-pointer ${
+                  showPassword ? "fa-eye-slash" : "fa-eye"
+                }`}
+                onClick={togglePasswordVisibility}
+              ></i>
             </div>
             <p className="text-red-500 text-start text-sm w-60">
               {error.passwordErr ? error.passwordErr : <br />}
@@ -215,7 +182,7 @@ export default function AdminRegistration() {
           <div>
             <div className="flex items-center border-b-2 border-black">
               <input
-                type="password"
+                type={showConfirmPassword ? "text" : "password"}
                 className="flex-grow bg-transparent outline-none placeholder-black"
                 placeholder="Re-Enter password"
                 name="confirmPassword"
@@ -224,7 +191,12 @@ export default function AdminRegistration() {
                 onBlur={handleConfirmPassword}
                 required
               />
-              <i className="fa-solid fa-lock text-xl"></i>
+              <i
+                className={`fa-solid text-xl cursor-pointer ${
+                  showConfirmPassword ? "fa-eye-slash" : "fa-eye"
+                }`}
+                onClick={toggleConfirmPasswordVisibility}
+              ></i>
             </div>
             <p className="text-red-500 text-start text-sm w-60">
               {error.confirmPasswordErr ? error.confirmPasswordErr : <br />}

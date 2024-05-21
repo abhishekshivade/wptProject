@@ -133,15 +133,17 @@ export const getTransactions = (req, res) => {
 };
 
 export const getPersonalDetails = (req, res) => {
-  const { accountNumber } = req.body;  const personalDetailsQuery=`select * from customerdetails where customerId=(select customerId from accountdetails where account_no=${accountNumber})`;
+  console.log("aa raha hai")
+  // const { accountNumber } = req.body;  const personalDetailsQuery=`select * from customerdetails where customerId=(select customerId from accountdetails where account_no=${accountNumber})`;
+  const { customerID } = req.body;  const personalDetailsQuery=`select * from customerdetails where customerId=${customerID}`;
   dbConnection.query(personalDetailsQuery, (error, result) => {
     if (error) {
-      // console.log(error);
+      console.log(error);
       res.status(500).send({
         message: "Failed to fetch Personal Details",
       });
     } else {
-      // console.log(result);
+      console.log(result);
       if (result.length == 0) {
         res.status(200).send({ message: "No Personal Details Found" });
       } else {

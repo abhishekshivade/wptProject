@@ -5,13 +5,11 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import { registerCustomer } from "../../services/customerServices";
-import { CUSTOMER_DASHBOARD } from "../../constants/AppRoutes";
+import { CUSTOMER_DASHBOARD, CUSTOMER_LOGIN_ROUTE } from "../../constants/AppRoutes";
 
 const CustomerRegistration = () => {
   const [isNext, setIsNext] = useState(false);
-
   const location = useLocation();
-
   console.log(location.pathname);
 
   const [userData, setUserData] = useState({
@@ -26,7 +24,7 @@ const CustomerRegistration = () => {
     accountType: "",
   });
 
-  const [confirmPasword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const [error, setError] = useState({
     firstNameErr: "",
@@ -44,17 +42,15 @@ const CustomerRegistration = () => {
   const navigate = useNavigate();
 
   const handleChange = (e) =>
-    setUserData(prevData=>({ ...prevData, [e.target.name]: e.target.value }));
+    setUserData((prevData) => ({ ...prevData, [e.target.name]: e.target.value }));
 
   const handleConfirmPassword = (e) => {
     e.preventDefault();
-
-    const confirmPaswordError = userData.password === confirmPasword;
-
-    if (confirmPaswordError) {
-      setError({ ...error, confirmPaswordError: null });
+    const confirmPasswordError = userData.password === confirmPassword;
+    if (confirmPasswordError) {
+      setError({ ...error, confirmPasswordError: null });
     } else {
-      setError({ ...error, confirmPaswordError: "Password do not match" });
+      setError({ ...error, confirmPasswordError: "Passwords do not match" });
       return;
     }
   };
@@ -69,112 +65,124 @@ const CustomerRegistration = () => {
       !error.addressErr
     ) {
       setIsNext(true);
-      console.log(userData)
+      console.log(userData);
     } else {
-      setError({ error, formErr: "Please enter correct data" });
+      setError({ ...error, formErr: "Please enter correct data" });
     }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(userData)
+    console.log(userData);
     try {
       const response = await registerCustomer(userData);
-      // console.log(response)
-
       if (response.status === 200) {
-        navigate(CUSTOMER_DASHBOARD);
+        navigate(CUSTOMER_LOGIN_ROUTE);
       }
     } catch (error) {
-      setError("Please enter correct data");
+      setError({ ...error, formErr: "Please enter correct data" });
     }
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center">
-      <div className="w-80 glass">
-        <div className="w-full text-center my-3">
-          <h2 className="text-2x1 text-black font-medium">Register</h2>
+    <div className="flex items-center justify-center min-h-screen p-4 bg-gray-100">
+      <div className="w-full max-w-md p-8 space-y-6 bg-white shadow-lg rounded-lg">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-black md:text-3xl">Register</h2>
         </div>
-        <form className="my-2" onSubmit={handleSubmit}>
+        <form className="space-y-4" onSubmit={handleSubmit}>
           {!isNext ? (
             <div>
-              <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
-                <input
-                  type="text"
-                  className="w-11/12 bg-transparent outline-none placeholder-black"
-                  placeholder="Enter your First Name"
-                  onChange={handleChange}
-                  name="firstName"
-                  value={userData.firstName}
-                  required
-                  
-                />
-                <div className="w-2/12 flex items-center justify-center">
-                  <i className="fa-solid fa-user text-x1"></i>
+              <div>
+                <div className="flex items-center border-b-2 border-black">
+                  <input
+                    type="text"
+                    className="flex-grow bg-transparent outline-none placeholder-black"
+                    placeholder="Enter your First Name"
+                    onChange={handleChange}
+                    name="firstName"
+                    value={userData.firstName}
+                    required
+                  />
+                  <i className="fa-solid fa-user text-xl"></i>
                 </div>
+                <p className="text-red-500 text-start text-sm w-60">
+                  {error.firstNameErr ? error.firstNameErr : <br />}
+                </p>
               </div>
-              <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
-                <input
-                  type="text"
-                  className="w-11/12 bg-transparent outline-none placeholder-black"
-                  placeholder="Enter your Last Name"
-                  onChange={handleChange}
-                  name="lastName"
-                  value={userData.lastName}
-                  required
-                />
-                <div className="w-2/12 flex items-center justify-center">
-                  <i className="fa-solid fa-user text-x1"></i>
+              <div>
+                <div className="flex items-center border-b-2 border-black">
+                  <input
+                    type="text"
+                    className="flex-grow bg-transparent outline-none placeholder-black"
+                    placeholder="Enter your Last Name"
+                    onChange={handleChange}
+                    name="lastName"
+                    value={userData.lastName}
+                    required
+                  />
+                  <i className="fa-solid fa-user text-xl"></i>
                 </div>
+                <p className="text-red-500 text-start text-sm w-60">
+                  {error.lastNameErr ? error.lastNameErr : <br />}
+                </p>
               </div>
-              <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
-                <input
-                  type="tel"
-                  className="w-11/12 bg-transparent outline-none placeholder-black"
-                  placeholder="Enter your Mobile Number"
-                  onChange={handleChange}
-                  name="mobileNumber"
-                  value={userData.mobileNumber}
-                  required
-                />
-                <div className="w-2/12 flex items-center justify-center">
-                  <i className="fa-solid fa-mobile text-x1"></i>
+              <div>
+                <div className="flex items-center border-b-2 border-black">
+                  <input
+                    type="tel"
+                    className="flex-grow bg-transparent outline-none placeholder-black"
+                    placeholder="Enter your Mobile Number"
+                    onChange={handleChange}
+                    name="mobileNumber"
+                    value={userData.mobileNumber}
+                    required
+                  />
+                  <i className="fa-solid fa-mobile text-xl"></i>
                 </div>
+                <p className="text-red-500 text-start text-sm w-60">
+                  {error.mobileNumberErr ? error.mobileNumberErr : <br />}
+                </p>
               </div>
-              <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
-                <input
-                  type="email"
-                  className="w-11/12 bg-transparent outline-none placeholder-black"
-                  placeholder="Enter your Email Address"
-                  onChange={handleChange}
-                  name="emailId"
-                  value={userData.emailId}
-                  required
-                />
-                <div className="w-2/12 flex items-center justify-center">
-                  <i className="fa-solid fa-envelope text-x1"></i>
+              <div>
+                <div className="flex items-center border-b-2 border-black">
+                  <input
+                    type="email"
+                    className="flex-grow bg-transparent outline-none placeholder-black"
+                    placeholder="Enter your Email Address"
+                    onChange={handleChange}
+                    name="emailId"
+                    value={userData.emailId}
+                    required
+                  />
+                  <i className="fa-solid fa-envelope text-xl"></i>
                 </div>
+                <p className="text-red-500 text-start text-sm w-60">
+                  {error.emailIdErr ? error.emailIdErr : <br />}
+                </p>
               </div>
-              <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
-                <input
-                  type="text"
-                  className="w-11/12 bg-transparent outline-none placeholder-black"
-                  placeholder="Enter your Address"
-                  onChange={handleChange}
-                  name="address"
-                  value={userData.address}
-                  required
-                />
-                <div className="w-2/12 flex items-center justify-center">
-                  <i className="fa-solid fa-house text-x1"></i>
+              <div>
+                <div className="flex items-center border-b-2 border-black">
+                  <input
+                    type="text"
+                    className="flex-grow bg-transparent outline-none placeholder-black"
+                    placeholder="Enter your Address"
+                    onChange={handleChange}
+                    name="address"
+                    value={userData.address}
+                    required
+                  />
+                  <i className="fa-solid fa-house text-xl"></i>
                 </div>
+                <p className="text-red-500 text-start text-sm w-60">
+                  {error.addressErr ? error.addressErr : <br />}
+                </p>
               </div>
-              {error.formErr && <p style={{ color: "red" }}>{error.f}</p>}
-              <div className="mx-5 my-7 py-2">
+              {error.formErr && <p className="text-red-500">{error.formErr}</p>}
+              <div className="text-center">
                 <button
                   onClick={handleNext}
-                  className="bg-black w-full h-[35px] rounded-sm text-white"
+                  className="bg-black w-20 h-10 text-white rounded-full hover:bg-white hover:text-black hover:border hover:border-black"
                 >
                   Next
                 </button>
@@ -182,90 +190,105 @@ const CustomerRegistration = () => {
             </div>
           ) : (
             <div>
-              <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
-                <input
-                  type="number"
-                  className="w-11/12 bg-transparent outline-none placeholder-black"
-                  placeholder="Enter your Aadhaar Number"
-                  value={userData.aadhaarNumber}
-                  onChange={handleChange}
-                  name="aadhaarNumber"
-                  required
-                />
-                <div className="w-2/12 flex items-center justify-center">
-                  <i className="fa-solid fa-id-card text-x1"></i>
+              <div>
+                <div className="flex items-center border-b-2 border-black">
+                  <input
+                    type="number"
+                    className="flex-grow bg-transparent outline-none placeholder-black"
+                    placeholder="Enter your Aadhaar Number"
+                    value={userData.aadhaarNumber}
+                    onChange={handleChange}
+                    name="aadhaarNumber"
+                    required
+                  />
+                  <i className="fa-solid fa-id-card text-xl"></i>
                 </div>
+                <p className="text-red-500 text-start text-sm w-60">
+                  {error.aadhaarNumberErr ? error.aadhaarNumberErr : <br />}
+                </p>
               </div>
-              <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
-                <input
-                  type="text"
-                  className="w-11/12 bg-transparent outline-none placeholder-black"
-                  placeholder="Enter your PAN Number"
-                  value={userData.panNumber}
-                  name="panNumber"
-                  onChange={handleChange}
-                  required
-                />
-                <div className="w-2/12 flex items-center justify-center">
-                  <i className="fa-solid fa-address-card text-x1"></i>
+              <div>
+                <div className="flex items-center border-b-2 border-black">
+                  <input
+                    type="text"
+                    className="flex-grow bg-transparent outline-none placeholder-black"
+                    placeholder="Enter your PAN Number"
+                    value={userData.panNumber}
+                    name="panNumber"
+                    onChange={handleChange}
+                    required
+                  />
+                  <i className="fa-solid fa-address-card text-xl"></i>
                 </div>
+                <p className="text-red-500 text-start text-sm w-60">
+                  {error.panNumberErr ? error.panNumberErr : <br />}
+                </p>
               </div>
-              <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
-                <input
-                  type="password"
-                  className="w-11/12 bg-transparent outline-none placeholder-black"
-                  placeholder="Enter your Strong Password"
-                  value={userData.password}
-                  name="password"
-                  onChange={handleChange}
-                  required
-                />
-                <div className="w-2/12 flex items-center justify-center">
-                  <i className="fa-solid fa-lock text-x1"></i>
+              <div>
+                <div className="flex items-center border-b-2 border-black">
+                  <input
+                    type="password"
+                    className="flex-grow bg-transparent outline-none placeholder-black"
+                    placeholder="Enter your Strong Password"
+                    value={userData.password}
+                    name="password"
+                    onChange={handleChange}
+                    required
+                  />
+                  <i className="fa-solid fa-lock text-xl"></i>
                 </div>
+                <p className="text-red-500 text-start text-sm w-60">
+                  {error.passwordErr ? error.passwordErr : <br />}
+                </p>
               </div>
-              <div className="flex border-b-black border-b-2 mx-5 my-7 py-1">
-                <input
-                  type="password"
-                  className="w-11/12 bg-transparent outline-none placeholder-black"
-                  placeholder="Re-Enter your Password"
-                  name="confirmPassword"
-                  value={confirmPasword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  // onBlur={handleConfirmPassword}
-                  onFocus={handleConfirmPassword}
-                  required
-                />
-                <div className="w-2/12 flex items-center justify-center">
-                  <i className="fa-solid fa-lock text-x1"></i>
+              <div>
+                <div className="flex items-center border-b-2 border-black">
+                  <input
+                    type="password"
+                    className="flex-grow bg-transparent outline-none placeholder-black"
+                    placeholder="Re-Enter your Password"
+                    name="confirmPassword"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    onBlur={handleConfirmPassword}
+                    required
+                  />
+                  <i className="fa-solid fa-lock text-xl"></i>
                 </div>
+                <p className="text-red-500 text-start text-sm w-60">
+                  {error.confirmPasswordErr ? error.confirmPasswordErr : <br />}
+                </p>
               </div>
-              <div className="flex flex-col border-b-black border-b-2 mx-5 my-7 py-1">
+              <div>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">
+                  <InputLabel
+                    id="accountType"
+                    className="bg-white text-gray-500"
+                  >
                     Account Type
                   </InputLabel>
                   <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId="accountType"
+                    id="accountType"
                     value={userData.accountType}
-                    name="accountType"
                     label="Account Type"
                     onChange={handleChange}
+                    name="accountType"
                     required
                   >
-                    <MenuItem value="Savings">Savings</MenuItem>
-                    <MenuItem value="Current">Current</MenuItem>
-                    <MenuItem value="Loan">Loan</MenuItem>
-                    <MenuItem value="FD">Fixed Deposit</MenuItem>
+                    <MenuItem value={"current"}>Current</MenuItem>
+                    <MenuItem value={"savings"}>Savings</MenuItem>
                   </Select>
                 </FormControl>
+                <p className="text-red-500 text-start text-sm w-60">
+                  {error.accountTypeErr ? error.accountTypeErr : <br />}
+                </p>
               </div>
-              {error.accountTypeErr && (
-                <p style={{ color: "red" }}>{error.accountTypeErr}</p>
-              )}
-              <div className="mx-5 my-7 py-2">
-                <button className="bg-black w-full h-[35px] rounded-sm text-white">
+              <div className="text-center">
+                <button
+                  type="submit"
+                  className="bg-black w-20 h-10 text-white rounded-full hover:bg-white hover:text-black hover:border hover:border-black"
+                >
                   Submit
                 </button>
               </div>
