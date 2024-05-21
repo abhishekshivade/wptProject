@@ -4,6 +4,7 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Authentication from "./subComponents/Authentication";
 import { ABOUT_ROUTE, ADMIN_LOGIN_ROUTE, ADMIN_SIGNUP_ROUTE, BASE_ROUTE, CONTACT_ROUTE, CUSTOMER_LOGIN_ROUTE, CUSTOMER_SIGNUP_ROUTE } from "../constants/AppRoutes";
 import { useLocation, useNavigate } from "react-router-dom";
+import {getToken, removeToken} from '../services/authServices'
 
 const Navbar = () => {
   const [userType, setUserType] = useState("Customer");
@@ -12,9 +13,18 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleLogout = (e) => setIsLoggedIn(false);
+  const handleLogout = (e) =>{ 
+    setIsLoggedIn(false);
+    navigate(BASE_ROUTE)
+    removeToken()
+  }
 
   useEffect(() => {
+
+    if(getToken()){
+      setIsLoggedIn(true)
+    }
+
     switch (userType) {
       case "Customer":
         if (location.pathname === `${ADMIN_LOGIN_ROUTE}`) {

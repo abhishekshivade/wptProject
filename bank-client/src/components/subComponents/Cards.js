@@ -41,9 +41,13 @@ const Cards = () => {
     {
       bgImg: Card3,
       description: (
-        <div className="flex flex-col gap-6 md:gap-32">
+        <div className="flex flex-col gap-6 md:gap-20">
           <div>
             <h3 className="text-xl font-bold text-slate-500 text-right">Personal Loan</h3>
+            <h6 className="pt-2">Book Today</h6>
+            <h6>Avail loan</h6>
+            <h6>at attractive</h6>
+            <h6>Interest rate</h6>
           </div>
           <button className="text-sm text-white rounded-full py-1 px-2 bg-red-600 w-28 mx-auto">Know More</button>
         </div>

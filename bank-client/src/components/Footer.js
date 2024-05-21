@@ -1,5 +1,6 @@
 import React from 'react';
 import Logo from "../assets/RuPay.png";
+import { ABOUT_ROUTE, CONTACT_ROUTE } from '../constants/AppRoutes'
 
 const Footer = () => {
   return (
@@ -26,16 +27,16 @@ const Footer = () => {
                             </ul>
                         </div>
                             <div className="footer-icons mt-3 -ml-5">
-                              <a href='https://www.facebook.com/CdacMumbaiJuhu/' target='_blank'>
+                              <a href='https://www.facebook.com/CdacMumbaiJuhu/' target='_blank' rel='noreferrer'>
                               <i class="fa-brands fa-facebook"></i>
                               </a>
-                              <a href='https://x.com/cdacindia?lang=en' target='_blank'>
+                              <a href='https://x.com/cdacindia?lang=en' target='_blank' rel='noreferrer'>
                               <i class="fa-brands fa-twitter"></i>
                               </a>
-                              <a href='https://www.instagram.com/cdac_mumbai?igsh=NmYzZjBjNTR1ZzN6' target='_blank'>
+                              <a href='https://www.instagram.com/cdac_mumbai?igsh=NmYzZjBjNTR1ZzN6' target='_blank' rel='noreferrer'>
                               <i class="fa-brands fa-instagram"></i>
                               </a>
-                              <a href='https://www.linkedin.com/in/cdac-mumbai-education-and-training-4b26111ba/' target='_blank'>
+                              <a href='https://www.linkedin.com/in/cdac-mumbai-education-and-training-4b26111ba/' target='_blank' rel='noreferrer'>
                                 <i class="fa-brands fa-linkedin-in"></i>
                                 </a>
                                 
@@ -45,10 +46,10 @@ const Footer = () => {
                             <h5>Quick Links</h5>
                             <ul>
                                 <li className="nav-item">
-                                    <a className="" href="/">About us</a>
+                                    <a className="" href={ABOUT_ROUTE}>About us</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="" href="/">Contact Us</a>
+                                    <a className="" href={CONTACT_ROUTE}>Contact Us</a>
                                 </li>
                                 <p className='font-semibold text-black mt-3'>Raintree Marg, near Bharati Vidyapeeth, Sector 7, CBD Belapur, Navi Mumbai, Maharashtra 400614</p>
                             </ul>

@@ -26,7 +26,7 @@ const CustomerRegistration = () => {
   });
 
   const [confirmPassword, setConfirmPassword] = useState("");
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -166,7 +166,6 @@ const CustomerRegistration = () => {
     });
   };
 
-  
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -440,13 +439,23 @@ const CustomerRegistration = () => {
                   {error.accountTypeErr ? error.accountTypeErr : <br />}
                 </p>
               </div>
+              <div className="flex justify-around">                
               <div className="text-center">
-                <button
-                  type="submit"
-                  className="bg-black w-20 h-10 text-white rounded-full hover:bg-white hover:text-black hover:border hover:border-black"
-                >
-                  Submit
-                </button>
+                  <button
+                  onClick={()=>setIsNext(false)}
+                    className="bg-black w-20 h-10 text-white rounded-full hover:bg-white hover:text-black hover:border hover:border-black"
+                  >
+                    Back
+                  </button>
+                </div>
+                <div className="text-center">
+                  <button
+                    type="submit"
+                    className="bg-black w-20 h-10 text-white rounded-full hover:bg-white hover:text-black hover:border hover:border-black"
+                  >
+                    Submit
+                  </button>
+                </div>
               </div>
             </div>
           )}
