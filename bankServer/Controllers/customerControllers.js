@@ -133,17 +133,16 @@ export const getTransactions = (req, res) => {
 };
 
 export const getPersonalDetails = (req, res) => {
-  console.log("aa raha hai")
-  // const { accountNumber } = req.body;  const personalDetailsQuery=`select * from customerdetails where customerId=(select customerId from accountdetails where account_no=${accountNumber})`;
-  const { customerID } = req.body;  const personalDetailsQuery=`select * from customerdetails where customerId=${customerID}`;
+  const { customerID } = req.body; 
+  const personalDetailsQuery=`select * from customerdetails where customerId=${customerID}`;
   dbConnection.query(personalDetailsQuery, (error, result) => {
     if (error) {
-      console.log(error);
+      // console.log(error);
       res.status(500).send({
         message: "Failed to fetch Personal Details",
       });
     } else {
-      console.log(result);
+      // console.log(result);
       if (result.length == 0) {
         res.status(200).send({ message: "No Personal Details Found" });
       } else {
@@ -153,12 +152,30 @@ export const getPersonalDetails = (req, res) => {
   });
 };
 
+export const getAllAccounts=(req,res)=>{
+  const{customerID}=req.body
+  const accountListQuery=`select account_no from accountdetails where customerId=${customerID}`
+
+  dbConnection.query(accountListQuery,(error,result)=>{
+    if(error){
+      res.status(500).send({message:'Failed to list accounts'})
+    }else{
+      if(result.length === 0){
+        res.status(200).send({message:'No Account found'})
+      }else{
+        res.status(200).send(result)
+      }
+    }
+  })
+}
+
 export const getAccountDetails = (req, res) => {
+  console.log(req.body)
   const { accountNumber } = req.body;
   const accountDetailsQuery = `select * from ${ACC_DETAILS_TABLE} where account_no=${accountNumber}`;
   dbConnection.query(accountDetailsQuery, (error, result) => {
     if (error) {
-      // console.log(error);
+      console.log(error);
       res.status(500).send({
         message: "Failed to fetch account details, Something went wrong",
       });
