@@ -133,17 +133,6 @@ const CustomerRegistration = () => {
     });
   };
 
-  const handleAccountType = (e) => {
-    e.preventDefault();
-
-    const accountTypeErr = validate.validateAccountType(userData.accountType);
-
-    setError({
-      ...error,
-      accountTypeErr,
-    });
-  };
-
   const handleConfirmPassword = (e) => {
     e.preventDefault();
     const confirmPasswordError = userData.password === confirmPassword;
@@ -423,7 +412,6 @@ const CustomerRegistration = () => {
                     labelId="accountType"
                     id="accountType"
                     value={userData.accountType}
-                    // onBlur={handleAccountType}
                     name="accountType"
                     label="Account Type"
                     onChange={handleChange}
@@ -439,10 +427,10 @@ const CustomerRegistration = () => {
                   {error.accountTypeErr ? error.accountTypeErr : <br />}
                 </p>
               </div>
-              <div className="flex justify-around">                
-              <div className="text-center">
+              <div className="flex justify-around">
+                <div className="text-center">
                   <button
-                  onClick={()=>setIsNext(false)}
+                    onClick={() => setIsNext(false)}
                     className="bg-black w-20 h-10 text-white rounded-full hover:bg-white hover:text-black hover:border hover:border-black"
                   >
                     Back

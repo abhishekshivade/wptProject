@@ -170,8 +170,8 @@ export const getAllAccounts=(req,res)=>{
 }
 
 export const getAccountDetails = (req, res) => {
-  console.log(req.body)
   const { accountNumber } = req.body;
+  console.log(req.body)
   const accountDetailsQuery = `select * from ${ACC_DETAILS_TABLE} where account_no=${accountNumber}`;
   dbConnection.query(accountDetailsQuery, (error, result) => {
     if (error) {
@@ -180,8 +180,8 @@ export const getAccountDetails = (req, res) => {
         message: "Failed to fetch account details, Something went wrong",
       });
     } else {
-      // console.log(result);
-      if (result.length == 0) {
+      console.log(result);
+      if (result.length === 0) {
         res.status(200).send({ message: "No account details Found!" });
       } else {
         res.status(200).send(result);
@@ -189,3 +189,21 @@ export const getAccountDetails = (req, res) => {
     }
   });
 };
+
+export const getAllCustomers=(req,res)=>{
+  const listCustomersQuery=`select * from ${CUST_DETAILS_TABLE}`
+
+  dbConnection.query(listCustomersQuery,(error,result)=>{
+    if(error){
+      // console.log(error);
+      res.status(500).send({message:'Failed to fetch customer list'})
+    }else{
+      // console.log(result)
+      if(result.length === 0){
+        res.status(200).send({message:'No customer found'})
+      }else{
+        res.status(200).send(result)
+      }
+    }
+  })
+}

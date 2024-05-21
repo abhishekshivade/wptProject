@@ -10,17 +10,6 @@ const validateUser = () => {
     return null; // No error
   };
 
-  // const validateLastName = (value) => {
-  //   const trimmedValue = value.trim().toUpperCase();
-  //   if (trimmedValue.length < 3 || trimmedValue.length > 10) {
-  //     return "Last Name must be between 3 and 10 characters long";
-  //   }
-  //   if (!/^[a-zA-Z]+$/.test(trimmedValue)) {
-  //     return "Last Name must contain only letters";
-  //   }
-  //   return null; // No error
-  // };
-
   const validateEmail = (value) => {
     if (
       !value
@@ -118,8 +107,6 @@ const validateAccountType = (value) => {
   };
 
   return {
-    //   validateFirstName,
-    //   validateLastName,
     validateName,
     validateEmail,
     validatePassword,
