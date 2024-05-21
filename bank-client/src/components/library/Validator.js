@@ -67,10 +67,55 @@ const validateUser = () => {
       return "Indian Mobile Number must be a 10-digit number starting with 6, 7, 8, or 9";
     }
 
-    return null; // No error
+    return null;
   };
 
+  const validateAadhaarNumber = (value) => {
+    const trimmedValue = value.trim();
+
+    if (!/^\d{12}$/.test(trimmedValue)) {
+        return "Aadhaar Number must be a 12-digit number";
+    }
+
+    return null; 
+};
+
+const validatePanCardNumber = (value) => {
+  const trimmedValue = value.trim();
+
+  if (!/^[A-Z]{5}[0-9]{4}[A-Z]$/.test(trimmedValue)) {
+      return "PAN Card Number must be a 10-character alphanumeric string (e.g., ABCDE1234F)";
+  }
+
+  return null;
+};
+
+
+const validateAccountType = (value) => {
+  const trimmedValue = value.trim().toLowerCase();
+
+  const validAccountTypes = ['Savings', 'Current', 'Loan', 'Fixed Deposit'];
+
+  if (!validAccountTypes.includes(trimmedValue)) {
+      return "Account type must be one of the following: Savings, Current, Loan, Fixed Deposit";
+  }
+
+  return null;
+};
+
+
+
   const validateBranch=value=>!value ? 'Please select a branch' : null;
+
+  const validateId = (value) => {
+    const trimmedValue = value.trim();
+
+    if (!/^\d{5}$/.test(trimmedValue)) {
+      return "Customer ID must be a 6 digit number";
+    }
+
+    return null; // No error
+  };
 
   return {
     //   validateFirstName,
@@ -80,7 +125,11 @@ const validateUser = () => {
     validatePassword,
     validateCityName,
     validateMobileNumber,
-    validateBranch
+    validateBranch,
+    validateId,
+    validateAadhaarNumber,
+    validatePanCardNumber,
+    validateAccountType
   };
 };
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { customerLogin } from "../../services/customerServices";
 import { CUSTOMER_DASHBOARD } from "../../constants/AppRoutes";
-import { getToken, storeToken } from "../../services/authServices";
+import { getToken, storeToken,storeUserType,storeCustomerId } from "../../services/authServices";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
@@ -41,6 +41,8 @@ const CustomerLogin = () => {
 
       if (response.status === 200) {
         storeToken(response.data.token);
+        storeUserType('customer')
+        storeCustomerId(loginCredentials.CustomerID)
         navigate(CUSTOMER_DASHBOARD);
       }
     } catch (error) {

@@ -1,10 +1,8 @@
-import React from "react";
+import React from 'react'
 
-const AdminDashboard = () => {
+const UserDetails = () => {
   return (
-    <div className="w-full min-h-screen p-4 bg-gray-100 text-center">
-      <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
-      {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div className="p-4 bg-white shadow rounded-lg">
           <h2 className="text-2xl font-semibold mb-4">Customer Details</h2>
           <div className="text-left space-y-2">
@@ -35,13 +33,8 @@ const AdminDashboard = () => {
             <p>Status: </p>
           </div>
         </div>
-      </div> */}
-      <div className="mt-6">
-        <h2 className="text-2xl font-semibold">Customer List Table</h2>
-        {/* Add your table component here */}
       </div>
-    </div>
-  );
-};
+  )
+}
 
-export default AdminDashboard;
+export default UserDetails

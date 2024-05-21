@@ -6,6 +6,7 @@ import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import { registerCustomer } from "../../services/customerServices";
 import { CUSTOMER_DASHBOARD } from "../../constants/AppRoutes";
+import validateUser from "../library/Validator";
 
 const CustomerRegistration = () => {
   const [isNext, setIsNext] = useState(false);
@@ -19,7 +20,7 @@ const CustomerRegistration = () => {
     lastName: "",
     mobileNumber: "",
     emailId: "",
-    address: "",
+    city: "",
     aadhaarNumber: "",
     panNumber: "",
     password: "",
@@ -33,7 +34,7 @@ const CustomerRegistration = () => {
     lastNameErr: "",
     mobileNumberErr: "",
     emailIdErr: "",
-    addressErr: "",
+    cityErr: "",
     formErr: "",
     aadhaarNumberErr: "",
     panNumberErr: "",
@@ -42,9 +43,99 @@ const CustomerRegistration = () => {
   });
 
   const navigate = useNavigate();
+  const validate = validateUser();
 
   const handleChange = (e) =>
     setUserData(prevData=>({ ...prevData, [e.target.name]: e.target.value }));
+
+  const handleFirstNameBlur = (e) => {
+    e.preventDefault();
+
+    const firstNameErr = validate.validateName(userData.firstName);
+
+    setError({
+      ...error,
+      firstNameErr,
+    });
+  };
+
+  const handleLastNameBlur = (e) => {
+    e.preventDefault();
+
+    const lastNameErr = validate.validateName(userData.lastName);
+
+    setError({
+      ...error,
+      lastNameErr,
+    });
+  };
+
+  const handleMobileNumber = (e) => {
+    e.preventDefault();
+
+    const mobileNumberErr = validate.validateMobileNumber(userData.mobileNumber);
+
+    setError({
+      ...error,
+      mobileNumberErr,
+    });
+  };
+
+  const handleEmailId = (e) =>{
+    e.preventDefault();
+
+    const emailIdErr = validate.validateEmail(userData.emailId);
+
+    setError({
+      ...error,
+      emailIdErr,
+    });
+  };
+
+  const handleCity = (e) => {
+    e.preventDefault();
+
+    const cityErr = validate.validateCityName(userData.city);
+
+    setError({
+      ...error,
+      cityErr,
+    });
+  };
+
+
+  const handleAadhaarNumber = (e) =>{
+    e.preventDefault();
+
+    const aadhaarNumberErr = validate.validateAadhaarNumber(userData.aadhaarNumber);
+
+    setError({
+      ...error,
+      aadhaarNumberErr,
+    });
+  };
+
+  const handlePanCard = (e) => {
+    e.preventDefault();
+
+    const panNumberErr = validate.validatePanCardNumber(userData.panNumber);
+
+    setError({
+      ...error,
+      panNumberErr,
+    });
+  };
+
+  const handleAccountType = (e) => {
+    e.preventDefault();
+
+    const accountTypeErr = validate.validateAccountType(userData.accountType);
+
+    setError({
+      ...error,
+      accountTypeErr,
+    })
+  }
 
   const handleConfirmPassword = (e) => {
     e.preventDefault();
@@ -57,7 +148,22 @@ const CustomerRegistration = () => {
       setError({ ...error, confirmPaswordError: "Password do not match" });
       return;
     }
+    
   };
+
+
+    const handlePasswordBlur = (e) => {
+      e.preventDefault();
+  
+      const passwordError = validate.validatePassword(userData.password);
+  
+      setError({
+        ...error,
+        passwordError,
+      });
+    };
+
+    
 
   const handleNext = (event) => {
     event.preventDefault();
@@ -69,7 +175,6 @@ const CustomerRegistration = () => {
       !error.addressErr
     ) {
       setIsNext(true);
-      console.log(userData)
     } else {
       setError({ error, formErr: "Please enter correct data" });
     }
@@ -107,6 +212,7 @@ const CustomerRegistration = () => {
                   onChange={handleChange}
                   name="firstName"
                   value={userData.firstName}
+                  onBlur={handleFirstNameBlur}
                   required
                   
                 />
@@ -122,6 +228,7 @@ const CustomerRegistration = () => {
                   onChange={handleChange}
                   name="lastName"
                   value={userData.lastName}
+                  onBlur={handleLastNameBlur}
                   required
                 />
                 <div className="w-2/12 flex items-center justify-center">
@@ -136,6 +243,7 @@ const CustomerRegistration = () => {
                   onChange={handleChange}
                   name="mobileNumber"
                   value={userData.mobileNumber}
+                  onBlur={handleMobileNumber}
                   required
                 />
                 <div className="w-2/12 flex items-center justify-center">
@@ -150,6 +258,7 @@ const CustomerRegistration = () => {
                   onChange={handleChange}
                   name="emailId"
                   value={userData.emailId}
+                  onBlur={handleEmailId}
                   required
                 />
                 <div className="w-2/12 flex items-center justify-center">
@@ -160,10 +269,11 @@ const CustomerRegistration = () => {
                 <input
                   type="text"
                   className="w-11/12 bg-transparent outline-none placeholder-black"
-                  placeholder="Enter your Address"
+                  placeholder="Enter your City"
                   onChange={handleChange}
-                  name="address"
-                  value={userData.address}
+                  name="city"
+                  value={userData.city}
+                  onBlur={handleCity}
                   required
                 />
                 <div className="w-2/12 flex items-center justify-center">
@@ -188,6 +298,7 @@ const CustomerRegistration = () => {
                   className="w-11/12 bg-transparent outline-none placeholder-black"
                   placeholder="Enter your Aadhaar Number"
                   value={userData.aadhaarNumber}
+                  onBlur={handleAadhaarNumber}
                   onChange={handleChange}
                   name="aadhaarNumber"
                   required
@@ -202,6 +313,7 @@ const CustomerRegistration = () => {
                   className="w-11/12 bg-transparent outline-none placeholder-black"
                   placeholder="Enter your PAN Number"
                   value={userData.panNumber}
+                  onBlur={handlePanCard}
                   name="panNumber"
                   onChange={handleChange}
                   required
@@ -216,6 +328,7 @@ const CustomerRegistration = () => {
                   className="w-11/12 bg-transparent outline-none placeholder-black"
                   placeholder="Enter your Strong Password"
                   value={userData.password}
+                  onBlur={handlePasswordBlur}
                   name="password"
                   onChange={handleChange}
                   required
@@ -249,6 +362,7 @@ const CustomerRegistration = () => {
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={userData.accountType}
+                    onBlur={handleAccountType}
                     name="accountType"
                     label="Account Type"
                     onChange={handleChange}

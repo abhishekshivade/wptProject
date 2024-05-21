@@ -16,7 +16,7 @@ export const createAccount = (req, res) => {
     lastName,
     mobileNumber,
     emailId,
-    address,
+    city,
     aadhaarNumber,
     panNumber,
     password,
@@ -25,11 +25,11 @@ export const createAccount = (req, res) => {
 
   const encryptedPassword = hashSync(password, 10);
 
-  const registerCustomerQuery = `insert into ${CUST_DETAILS_TABLE} (customerName,MobileNo,EmailID,Address,AadharNo,PanNo,Password) values ('${firstName} ${lastName}','${mobileNumber}','${emailId}','${address}','${aadhaarNumber}','${panNumber}','${encryptedPassword}')`;
+  const registerCustomerQuery = `insert into ${CUST_DETAILS_TABLE} (customerName,MobileNo,EmailID,Address,AadharNo,PanNo,Password) values ('${firstName} ${lastName}','${mobileNumber}','${emailId}','${city}','${aadhaarNumber}','${panNumber}','${encryptedPassword}')`;
 
   dbConnection.query(registerCustomerQuery, (error, result) => {
     if (error) {
-      // console.log(error)
+      console.log(error)
       res
         .status(500)
         .send({ message: "Failed to register user, Something went wrong...!" });
@@ -39,13 +39,13 @@ export const createAccount = (req, res) => {
 
       dbConnection.query(customerIdQry, (error, result) => {
         if (error) {
-          // console.log(error)
+          console.log(error)
           res.status(500).send({ message: "Failed to Retrive Customer ID" });
         } else {
           // console.log(result);
           const customerId = result[0].CustomerID;
 
-          const branchCodeQry = `select branch_code from ${BRANCH_DETAILS_TABLE} where address='${address}'`;
+          const branchCodeQry = `select branch_code from ${BRANCH_DETAILS_TABLE} where address='${city}'`;
 
           dbConnection.query(branchCodeQry, (error, result) => {
             if (error) {
