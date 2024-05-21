@@ -6,6 +6,7 @@ import { getToken, storeToken,storeUserType,storeCustomerId } from "../../servic
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
+
 const CustomerLogin = () => {
   const [loginCredentials, setLoginCredentials] = useState({
     CustomerID: "",
@@ -41,6 +42,8 @@ const CustomerLogin = () => {
 
       if (response.status === 200) {
         storeToken(response.data.token);
+        storeUserType('customer')
+        storeCustomerId(loginCredentials.CustomerID)
         storeUserType('customer')
         storeCustomerId(loginCredentials.CustomerID)
         navigate(CUSTOMER_DASHBOARD);
