@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -10,8 +10,6 @@ import validateUser from "../library/Validator";
 
 const CustomerRegistration = () => {
   const [isNext, setIsNext] = useState(false);
-  const location = useLocation();
-  console.log(location.pathname);
 
   const [userData, setUserData] = useState({
     firstName: "",
@@ -26,7 +24,7 @@ const CustomerRegistration = () => {
   });
 
   const [confirmPassword, setConfirmPassword] = useState("");
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -133,17 +131,6 @@ const CustomerRegistration = () => {
     });
   };
 
-  const handleAccountType = (e) => {
-    e.preventDefault();
-
-    const accountTypeErr = validate.validateAccountType(userData.accountType);
-
-    setError({
-      ...error,
-      accountTypeErr,
-    });
-  };
-
   const handleConfirmPassword = (e) => {
     e.preventDefault();
     const confirmPasswordError = userData.password === confirmPassword;
@@ -166,7 +153,6 @@ const CustomerRegistration = () => {
     });
   };
 
-  
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -192,7 +178,6 @@ const CustomerRegistration = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(userData);
     try {
       const response = await registerCustomer(userData);
       if (response.status === 200) {
@@ -424,7 +409,6 @@ const CustomerRegistration = () => {
                     labelId="accountType"
                     id="accountType"
                     value={userData.accountType}
-                    // onBlur={handleAccountType}
                     name="accountType"
                     label="Account Type"
                     onChange={handleChange}
@@ -440,13 +424,23 @@ const CustomerRegistration = () => {
                   {error.accountTypeErr ? error.accountTypeErr : <br />}
                 </p>
               </div>
-              <div className="text-center">
-                <button
-                  type="submit"
-                  className="bg-black w-20 h-10 text-white rounded-full hover:bg-white hover:text-black hover:border hover:border-black"
-                >
-                  Submit
-                </button>
+              <div className="flex justify-around">
+                <div className="text-center">
+                  <button
+                    onClick={() => setIsNext(false)}
+                    className="bg-black w-20 h-10 text-white rounded-full hover:bg-white hover:text-black hover:border hover:border-black"
+                  >
+                    Back
+                  </button>
+                </div>
+                <div className="text-center">
+                  <button
+                    type="submit"
+                    className="bg-black w-20 h-10 text-white rounded-full hover:bg-white hover:text-black hover:border hover:border-black"
+                  >
+                    Submit
+                  </button>
+                </div>
               </div>
             </div>
           )}

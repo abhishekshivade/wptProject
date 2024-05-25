@@ -1,7 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-// import { useNavigate } from 'react-router-dom'
 import { getAdminToken, getCustomerToken, removeAdminToken, removeCustomerToken } from '../services/authServices'
-// import {ADMIN_DASHBOARD,CUSTOMER_DASHBOARD,BASE_ROUTE} from '../constants/AppRoutes'
 import{adminLogin} from '../services/adminServices'
 import{customerLogin}from '../services/customerServices'
 
@@ -10,23 +8,6 @@ const AuthContext=createContext();
 export const AuthProvider=({Children})=>{
     const [user, setUser]=useState(null);
     const [error,setError]=useState(null)
-    // const navigate=useNavigate()
-
-    // useEffect(()=>{
-    //     const customerToken= getCustomerToken();
-    //     const adminToken=getAdminToken()
-
-    //     if(customerToken){
-    //         setUser({type:'Customer', token:customerToken})
-    //     }else if(adminToken){
-    //         setUser({type:'Employee',token:adminToken})
-    //     }
-    // },[])
-
-    // const login=userData=>{
-    //     setUser(userData)
-    //     // navigate(userData.type === 'Employee' ? `${ADMIN_DASHBOARD}`:`${CUSTOMER_DASHBOARD}`)
-    // }
 
     const login= async(userData,userType)=>{
         setError(null);
@@ -53,7 +34,6 @@ export const AuthProvider=({Children})=>{
         }
 
         setUser(null)
-        // navigate(`${BASE_ROUTE}`)
     }
 
     const isAuthenticated=()=> {

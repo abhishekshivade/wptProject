@@ -11,3 +11,5 @@ export const ADMIN_CUSTOMER_DETAILS="/adminCustomerDetails"
 export const CUSTOMER_LOGIN_ROUTE="/customerLogIn"
 export const CUSTOMER_SIGNUP_ROUTE="/customerSignUp"
 export const CUSTOMER_DASHBOARD="/customerDashboard"
+
+export const LOREM='/lorem'
