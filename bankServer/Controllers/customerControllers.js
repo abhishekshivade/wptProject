@@ -29,7 +29,7 @@ export const createAccount = (req, res) => {
 
   dbConnection.query(registerCustomerQuery, (error, result) => {
     if (error) {
-      console.log(error)
+      // console.log(error)
       res
         .status(500)
         .send({ message: "Failed to register user, Something went wrong...!" });
@@ -39,7 +39,7 @@ export const createAccount = (req, res) => {
 
       dbConnection.query(customerIdQry, (error, result) => {
         if (error) {
-          console.log(error)
+          // console.log(error)
           res.status(500).send({ message: "Failed to Retrive Customer ID" });
         } else {
           // console.log(result);
@@ -171,16 +171,15 @@ export const getAllAccounts=(req,res)=>{
 
 export const getAccountDetails = (req, res) => {
   const { accountNumber } = req.body;
-  console.log(req.body)
   const accountDetailsQuery = `select * from ${ACC_DETAILS_TABLE} where account_no=${accountNumber}`;
   dbConnection.query(accountDetailsQuery, (error, result) => {
     if (error) {
-      console.log(error);
+      // console.log(error);
       res.status(500).send({
         message: "Failed to fetch account details, Something went wrong",
       });
     } else {
-      console.log(result);
+      // console.log(result);
       if (result.length === 0) {
         res.status(200).send({ message: "No account details Found!" });
       } else {

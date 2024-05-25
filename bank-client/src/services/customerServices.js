@@ -36,7 +36,7 @@ export const getPersonalDetails = async (customerID) => {
     const response = await axios.post(CUSTOMER_PR_DETAILS, data, config);
     return response.data;
   } catch (error) {
-    console.error("Error fetching personal details:", error);
+    // console.error("Error fetching personal details:", error);
     throw error;
   }
 };
@@ -57,7 +57,7 @@ export const getAllAccounts = async (customerID) => {
     const response = await axios.post(GET_ALL_ACCOUNTS, data, config);
     return response.data;
   } catch (error) {
-    console.error("Error fetching account list:", error);
+    // console.error("Error fetching account list:", error);
     throw error;
   }
 };
@@ -76,10 +76,9 @@ export const getAccountDetails = async (accountNo) => {
 
   try {
     const response = await axios.post(CUSTOMER_AC_DETAILS, data, config);
-    console.log(accountNo,'\n',response)
     return response.data;
   } catch (error) {
-    console.error("Error fetching account details:", error);
+    // console.error("Error fetching account details:", error);
     throw error;
   }
 };

@@ -36,7 +36,7 @@ const CustomerDashboard = () => {
           setAccountDetails(accountData);
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        // console.error("Error fetching data:", error);
       }
     };
 
@@ -50,7 +50,7 @@ const CustomerDashboard = () => {
           const accountData = await getAccountDetails(accountNumber);
           setAccountDetails(accountData);
         } catch (error) {
-          console.error("Error fetching account details:", error);
+          // console.error("Error fetching account details:", error);
         }
       }
     };

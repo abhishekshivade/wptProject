@@ -32,11 +32,7 @@ const CustomerList = ({ customers }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (selectedCustomer) {
-        console.log(selectedCustomer);
-
         const account = await getAllAccounts(selectedCustomer);
-
-        console.log(account[0].account_no)
         setAccountDetails(await getAccountDetails(account[0].account_no));
       }
     };

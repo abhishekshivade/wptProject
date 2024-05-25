@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -10,8 +10,6 @@ import validateUser from "../library/Validator";
 
 const CustomerRegistration = () => {
   const [isNext, setIsNext] = useState(false);
-  const location = useLocation();
-  console.log(location.pathname);
 
   const [userData, setUserData] = useState({
     firstName: "",
@@ -180,7 +178,6 @@ const CustomerRegistration = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(userData);
     try {
       const response = await registerCustomer(userData);
       if (response.status === 200) {
