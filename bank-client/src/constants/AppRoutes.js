@@ -9,6 +9,7 @@ export const ADMIN_CUSTOMER_TR_DETAILS="/adminCustomerTRDetails"
 export const ADMIN_CUSTOMER_DETAILS="/adminCustomerDetails"
 
 export const CUSTOMER_LOGIN_ROUTE="/customerLogIn"
-export const CUSTOMER_SIGNUP_ROUTE1="/customerSignUp1"
-export const CUSTOMER_SIGNUP_ROUTE2="/customerSignUp2"
+export const CUSTOMER_SIGNUP_ROUTE="/customerSignUp"
 export const CUSTOMER_DASHBOARD="/customerDashboard"
+
+export const LOREM='/lorem'

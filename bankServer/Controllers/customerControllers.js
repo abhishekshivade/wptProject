@@ -16,7 +16,7 @@ export const createAccount = (req, res) => {
     lastName,
     mobileNumber,
     emailId,
-    address,
+    city,
     aadhaarNumber,
     panNumber,
     password,
@@ -25,7 +25,7 @@ export const createAccount = (req, res) => {
 
   const encryptedPassword = hashSync(password, 10);
 
-  const registerCustomerQuery = `insert into ${CUST_DETAILS_TABLE} (customerName,MobileNo,EmailID,Address,AadharNo,PanNo,Password) values ('${firstName} ${lastName}','${mobileNumber}','${emailId}','${address}','${aadhaarNumber}','${panNumber}','${encryptedPassword}')`;
+  const registerCustomerQuery = `insert into ${CUST_DETAILS_TABLE} (customerName,MobileNo,EmailID,Address,AadharNo,PanNo,Password) values ('${firstName} ${lastName}','${mobileNumber}','${emailId}','${city}','${aadhaarNumber}','${panNumber}','${encryptedPassword}')`;
 
   dbConnection.query(registerCustomerQuery, (error, result) => {
     if (error) {
@@ -45,7 +45,7 @@ export const createAccount = (req, res) => {
           // console.log(result);
           const customerId = result[0].CustomerID;
 
-          const branchCodeQry = `select branch_code from ${BRANCH_DETAILS_TABLE} where address='${address}'`;
+          const branchCodeQry = `select branch_code from ${BRANCH_DETAILS_TABLE} where address='${city}'`;
 
           dbConnection.query(branchCodeQry, (error, result) => {
             if (error) {
@@ -133,7 +133,8 @@ export const getTransactions = (req, res) => {
 };
 
 export const getPersonalDetails = (req, res) => {
-  const { accountNumber } = req.body;  const personalDetailsQuery=`select * from customerdetails where customerId=(select customerId from accountdetails where account_no=${accountNumber})`;
+  const { customerID } = req.body; 
+  const personalDetailsQuery=`select * from customerdetails where customerId=${customerID}`;
   dbConnection.query(personalDetailsQuery, (error, result) => {
     if (error) {
       // console.log(error);
@@ -151,6 +152,23 @@ export const getPersonalDetails = (req, res) => {
   });
 };
 
+export const getAllAccounts=(req,res)=>{
+  const{customerID}=req.body
+  const accountListQuery=`select account_no from accountdetails where customerId=${customerID}`
+
+  dbConnection.query(accountListQuery,(error,result)=>{
+    if(error){
+      res.status(500).send({message:'Failed to list accounts'})
+    }else{
+      if(result.length === 0){
+        res.status(200).send({message:'No Account found'})
+      }else{
+        res.status(200).send(result)
+      }
+    }
+  })
+}
+
 export const getAccountDetails = (req, res) => {
   const { accountNumber } = req.body;
   const accountDetailsQuery = `select * from ${ACC_DETAILS_TABLE} where account_no=${accountNumber}`;
@@ -162,7 +180,7 @@ export const getAccountDetails = (req, res) => {
       });
     } else {
       // console.log(result);
-      if (result.length == 0) {
+      if (result.length === 0) {
         res.status(200).send({ message: "No account details Found!" });
       } else {
         res.status(200).send(result);
@@ -170,3 +188,21 @@ export const getAccountDetails = (req, res) => {
     }
   });
 };
+
+export const getAllCustomers=(req,res)=>{
+  const listCustomersQuery=`select * from ${CUST_DETAILS_TABLE}`
+
+  dbConnection.query(listCustomersQuery,(error,result)=>{
+    if(error){
+      // console.log(error);
+      res.status(500).send({message:'Failed to fetch customer list'})
+    }else{
+      // console.log(result)
+      if(result.length === 0){
+        res.status(200).send({message:'No customer found'})
+      }else{
+        res.status(200).send(result)
+      }
+    }
+  })
+}

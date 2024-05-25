@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { customerLogin } from "../../services/customerServices";
 import { CUSTOMER_DASHBOARD } from "../../constants/AppRoutes";
-import { getToken, storeToken } from "../../services/authServices";
+import { getToken, storeToken,storeUserType,storeCustomerId } from "../../services/authServices";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
+
 const CustomerLogin = () => {
   const [loginCredentials, setLoginCredentials] = useState({
-    customerId: "",
-    password: "",
+    CustomerID: "",
+    Password: "",
   });
   const [error, setError] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -41,6 +42,10 @@ const CustomerLogin = () => {
 
       if (response.status === 200) {
         storeToken(response.data.token);
+        storeUserType('customer')
+        storeCustomerId(loginCredentials.CustomerID)
+        storeUserType('customer')
+        storeCustomerId(loginCredentials.CustomerID)
         navigate(CUSTOMER_DASHBOARD);
       }
     } catch (error) {
@@ -56,8 +61,8 @@ const CustomerLogin = () => {
           <div className="relative flex border-b-black border-b-2 mx-5 my-7 py-1">
             <input
               type="text"
-              name="customerId"
-              value={loginCredentials.customerId}
+              name="CustomerID"
+              value={loginCredentials.CustomerID}
               onChange={handleChange}
               required
               className="w-full bg-transparent outline-none placeholder-black pl-8"
@@ -70,8 +75,8 @@ const CustomerLogin = () => {
           <div className="relative flex border-b-black border-b-2 mx-5 my-7 py-1">
             <input
               type={passwordVisible ? "text" : "password"}
-              name="password"
-              value={loginCredentials.password}
+              name="Password"
+              value={loginCredentials.Password}
               onChange={handleChange}
               required
               className="w-full bg-transparent outline-none placeholder-black pl-8"

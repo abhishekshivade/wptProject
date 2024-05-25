@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import Logo from "../assets/RuPay.png";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import Authentication from "./subComponents/Authentication";
-import { ABOUT_ROUTE, ADMIN_LOGIN_ROUTE, ADMIN_SIGNUP_ROUTE, BASE_ROUTE, CONTACT_ROUTE, CUSTOMER_LOGIN_ROUTE, CUSTOMER_SIGNUP_ROUTE1 } from "../constants/AppRoutes";
+import { ABOUT_ROUTE, ADMIN_LOGIN_ROUTE, ADMIN_SIGNUP_ROUTE, BASE_ROUTE, CONTACT_ROUTE, CUSTOMER_LOGIN_ROUTE, CUSTOMER_SIGNUP_ROUTE } from "../constants/AppRoutes";
 import { useLocation, useNavigate } from "react-router-dom";
+import {getToken, removeCustomerId, removeToken, removeUserType} from '../services/authServices'
 
 const Navbar = () => {
   const [userType, setUserType] = useState("Customer");
@@ -12,23 +13,34 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleLogout = (e) => setIsLoggedIn(false);
+  const handleLogout = (e) =>{ 
+    setIsLoggedIn(false);
+    navigate(BASE_ROUTE)
+    removeToken()
+    removeUserType();
+    removeCustomerId();
+  }
 
   useEffect(() => {
+
+    if(getToken()){
+      setIsLoggedIn(true)
+    }
+
     switch (userType) {
       case "Customer":
         if (location.pathname === `${ADMIN_LOGIN_ROUTE}`) {
           navigate(`${CUSTOMER_LOGIN_ROUTE}`);
         }
         if (location.pathname === `${ADMIN_SIGNUP_ROUTE}`) {
-          navigate(`${CUSTOMER_SIGNUP_ROUTE1}`);
+          navigate(`${CUSTOMER_SIGNUP_ROUTE}`);
         }
         break;
       case "Employee":
         if (location.pathname === `${CUSTOMER_LOGIN_ROUTE}`) {
           navigate(`${ADMIN_LOGIN_ROUTE}`);
         }
-        if (location.pathname === `${CUSTOMER_SIGNUP_ROUTE1}`) {
+        if (location.pathname === `${CUSTOMER_SIGNUP_ROUTE}`) {
           navigate(`${ADMIN_SIGNUP_ROUTE}`);
         }
         break;
@@ -84,4 +96,6 @@ const Navbar = () => {
   );
 };
 
+
 export default Navbar;
+

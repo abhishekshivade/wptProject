@@ -3,8 +3,13 @@ import Card1 from '../../assets/cards/card1.webp'
 import Card2 from '../../assets/cards/card2.png'
 import Card3 from '../../assets/cards/card3.png'
 import Card4 from '../../assets/cards/card4.png'
+import { useNavigate } from 'react-router-dom'
+import { LOREM } from '../../constants/AppRoutes'
 
 const Cards = () => {
+
+  const navigate=useNavigate()
+  
   const items = [
     {
       bgImg: Card1,
@@ -18,7 +23,7 @@ const Cards = () => {
             <h6>with</h6>
             <h6>RuPay</h6>
           </div>
-          <button className="text-sm text-white rounded-full py-1 px-2 bg-red-600 w-28 mx-auto">Know More</button>
+          <button className="text-sm text-white rounded-full py-1 px-2 bg-red-600 w-28 mx-auto" onClick={()=>navigate(LOREM)}>Know More</button>
         </div>
       ),
     },
@@ -34,18 +39,22 @@ const Cards = () => {
             <h6>return with</h6>
             <h6>RuPay</h6>
           </div>
-          <button className="text-sm text-white rounded-full py-1 px-2 bg-red-600 w-28 mx-auto">Know More</button>
+          <button className="text-sm text-white rounded-full py-1 px-2 bg-red-600 w-28 mx-auto" onClick={()=>navigate(LOREM)}>Know More</button>
         </div>
       ),
     },
     {
       bgImg: Card3,
       description: (
-        <div className="flex flex-col gap-6 md:gap-32">
+        <div className="flex flex-col gap-6 md:gap-20">
           <div>
             <h3 className="text-xl font-bold text-slate-500 text-right">Personal Loan</h3>
+            <h6 className="pt-2">Book Today</h6>
+            <h6>Avail loan</h6>
+            <h6>at attractive</h6>
+            <h6>Interest rate</h6>
           </div>
-          <button className="text-sm text-white rounded-full py-1 px-2 bg-red-600 w-28 mx-auto">Know More</button>
+          <button className="text-sm text-white rounded-full py-1 px-2 bg-red-600 w-28 mx-auto" onClick={()=>navigate(LOREM)}>Know More</button>
         </div>
       ),
     },
@@ -60,7 +69,7 @@ const Cards = () => {
             <h6>moment at</h6>
             <h6>home</h6>
           </div>
-          <button className="text-sm text-white rounded-full py-1 px-2 bg-red-600 w-28 mx-auto">Know More</button>
+          <button className="text-sm text-white rounded-full py-1 px-2 bg-red-600 w-28 mx-auto" onClick={()=>navigate(LOREM)}>Know More</button>
         </div>
       ),
     },
